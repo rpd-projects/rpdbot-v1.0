@@ -117,8 +117,7 @@ if ($type == 'join' || $command == '/menu') {
     );
 }
 if($message['type']=='text') {
-        if '/lokasi ' in $command {
-        $loc = str_replace('/lokasi ','',$command)
+        if ($command == '/lokasi') {
         $data=json_decode(ngegrab('https://maps.googleapis.com/maps/api/geocode/json?address='.$loc.'&key=AIzaSyAzuwWTOehoOope1LMsFk9Pf6bc49I9sds'),true);
         $address=$data[results][0][formatted_address];
         $lat  = $data[results][0][geometry][location][lat];
