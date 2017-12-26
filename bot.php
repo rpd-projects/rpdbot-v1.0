@@ -62,6 +62,28 @@ function cuaca($keyword) {
 # require_once('./src/function/hard.php');
 
 #-------------------------[Function]-------------------------#
+function lokasi($keyword) {
+    $uri = "https://time.siswadi.com/pray/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "====[Lokasi]====";
+    $result .= "\nLokasi : ";
+	$result .= $json['location']['address'];
+	$result .= "\n\nPencarian : Google";
+	$result .= "\n====[Lokasi]====";
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+
+# require_once('./src/function/search-1.php');
+# require_once('./src/function/download.php');
+# require_once('./src/function/random.php');
+# require_once('./src/function/search-2.php');
+# require_once('./src/function/hard.php');
+
+#-------------------------[Function]-------------------------#"
 function shalat($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
 
@@ -94,29 +116,6 @@ function shalat($keyword) {
 # require_once('./src/function/random.php');
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
-
-#-------------------------[Function]-------------------------#
-function lokasi($keyword) {
-    $uri = "https://time.siswadi.com/pray/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "====[Lokasi]====";
-    $result .= "\nLokasi : ";
-	$result .= $json['location']['address'];
-	$result .= "\n\nPencarian : Google";
-	$result .= "\n====[Lokasi]====";
-    return $result;
-}
-#-------------------------[Function]-------------------------#
-
-# require_once('./src/function/search-1.php');
-# require_once('./src/function/download.php');
-# require_once('./src/function/random.php');
-# require_once('./src/function/search-2.php');
-# require_once('./src/function/hard.php');
-
 
 #-------------------------[Function]-------------------------#
 function lirik($keyword) {
