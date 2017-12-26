@@ -95,6 +95,53 @@ function shalat($keyword) {
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
 
+#-------------------------[Function]-------------------------#
+function lokasi($keyword) {
+    $uri = "https://time.siswadi.com/pray/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "====[Lokasi]====";
+    $result .= "\nLokasi : ";
+	$result .= $json['location']['address'];
+	$result .= "\n\nPencarian : Google";
+	$result .= "\n====[Lokasi]====";
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+
+# require_once('./src/function/search-1.php');
+# require_once('./src/function/download.php');
+# require_once('./src/function/random.php');
+# require_once('./src/function/search-2.php');
+# require_once('./src/function/hard.php');
+
+
+#-------------------------[Function]-------------------------#
+function lirik($keyword) {
+    $uri = "http://ide.fdlrcn.com/workspace/yumi-apis/joox?" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "====[Lirik]====";
+    $result .= "\nJudul : ";
+	$result .= $json['data']['song[0]'];
+	$result .= "\nLirik : ";
+	$result .= $json['data']['song[5]'];
+	$result .= "\n\nPencarian : Google";
+	$result .= "\n====[Lirik]====";
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+
+# require_once('./src/function/search-1.php');
+# require_once('./src/function/download.php');
+# require_once('./src/function/random.php');
+# require_once('./src/function/search-2.php');
+# require_once('./src/function/hard.php');
+
 //show menu, saat join dan command /menu
 if ($type == 'join' || $command == '/menu') {
     $text = "Terima kasih telah invite aku ke group ya kak..\nKetik 'Help' untuk menggunakan Bot";
@@ -125,10 +172,41 @@ if($message['type']=='text') {
         );
     }
 }
+if($message['type']=='text') {
+	    if ($command == '/lokasi') {
+
+        $result = lokasi($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
 //pesan bergambar
 if($message['type']=='text') {
-	    if ($command == '/shalat') {
+	    if ($commmnd == '/lirik') {
 
+        $result = lirik($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($commmnd == '/shalat') {
         $result = shalat($options);
         $balas = array(
             'replyToken' => $replyToken,
