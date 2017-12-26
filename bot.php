@@ -49,7 +49,7 @@ function cuaca($keyword) {
 	$result .= $json['weather']['0']['main'];
 	$result .= "\nDeskripsi : ";
 	$result .= $json['weather']['0']['description'];
-	$result .= "====[InfoCuaca]====";
+	$result .= "\n====[InfoCuaca]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -82,7 +82,7 @@ function shalat($keyword) {
 	$result .= $json['data']['Maghrib'];
 	$result .= "\nIsya : ";
 	$result .= $json['data']['Isha'];
-	$result .= "====[JadwalShalat]====";
+	$result .= "\n====[JadwalShalat]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
