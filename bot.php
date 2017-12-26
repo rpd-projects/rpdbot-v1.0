@@ -95,7 +95,7 @@ function shalat($keyword) {
 
 //show menu, saat join dan command /menu
 if ($type == 'join' || $command == '/menu') {
-    $text = "Terima kasih telah invite aku ke group ya kak..";
+    $text = "Terima kasih telah invite aku ke group ya kak..\nKetik 'Help' untuk menggunakan Bot";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
