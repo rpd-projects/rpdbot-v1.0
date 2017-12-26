@@ -9,8 +9,7 @@ Modified @ Farzain - zFz
 require_once('./line_class.php');
 require_once('./unirest-php-master/src/Unirest.php');
 
-$channelAccessToken = 'FjzBbDqBRGy0NphY6ozfM2rtlxdSb1HkZYk+eMjvIi03KHD3PLAAlYAjRjFO4wCYu5/AiOWSXSW6zyYTuzf7XDXj8/gyblUF19yrzGr9RJpFWdx3tq7UGf4Vhkp4mtQ1fzGSpPrn9a9leeLZzU2/WwdB04t89/1O/w1cDnyilFU=
-'; //sesuaikan 
+$channelAccessToken = 'uggYKOBkqLfYxGJtpycBWfAs60NTWOG99sK3t1aRSwF4DoDLd8Wb07qh2PyjOFUou5/AiOWSXSW6zyYTuzf7XDXj8/gyblUF19yrzGr9RJrwHHDYU+8XY455QM6u9Tz1hv8YXYMBJSIiXRa5pyvwYwdB04t89/1O/w1cDnyilFU='; //sesuaikan 
 $channelSecret = 'e86c79bc189716a141bb0ecd71418e58';//sesuaikan
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
@@ -44,7 +43,7 @@ function cuaca($keyword) {
     $response = Unirest\Request::get("$uri");
 
     $json = json_decode($response->raw_body, true);
-    $result = "Halo Kak ^_^ Ini ada Ramalan Cuaca Untuk Daerah ";
+    $result = "======[InfoCuaca]======";
 	$result .= $json['name'];
 	$result .= " Dan Sekitarnya";
 	$result .= "\n\nCuaca : ";
@@ -61,9 +60,40 @@ function cuaca($keyword) {
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
 
+#-------------------------[Function]-------------------------#
+function shalat($keyword) {
+    $uri = "https://time.siswadi.com/pray/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Jadwal Shalat Sekitar ";
+	$result .= $json['location']['address'];
+	$result .= "\nTanggal : ";
+	$result .= $json['time']['date'];
+	$result .= "\n\nShubuh : ";
+	$result .= $json['data']['Fajr'];
+	$result .= "\nDzuhur : ";
+	$result .= $json['data']['Dhuhr'];
+	$result .= "\nAshar : ";
+	$result .= $json['data']['Asr'];
+	$result .= "\nMaghrib : ";
+	$result .= $json['data']['Maghrib'];
+	$result .= "\nIsya : ";
+	$result .= $json['data']['Isha'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+
+# require_once('./src/function/search-1.php');
+# require_once('./src/function/download.php');
+# require_once('./src/function/random.php');
+# require_once('./src/function/search-2.php');
+# require_once('./src/function/hard.php');
+
 //show menu, saat join dan command /menu
 if ($type == 'join' || $command == '/menu') {
-    $text = "Halo Kak ^_^\nAku Bot Prediksi Cuaca, Kamu bisa mengetahui prediksi cuaca di daerah kamu sesuai dengan sumber BMKG";
+    $text = "Terima kasih telah invite aku ke group ya kak..";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -91,6 +121,22 @@ if($message['type']=='text') {
         );
     }
 
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/shalat') {
+
+        $result = shalat($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+
 }else if($message['type']=='sticker')
 {	
 	$balas = array(
@@ -98,7 +144,7 @@ if($message['type']=='text') {
 							'messages' => array(
 								array(
 										'type' => 'text',									
-										'text' => 'Makasih Kak Stikernya ^_^'										
+										'text' => 'Makasih Stickernya Boss'										
 									
 									)
 							)
