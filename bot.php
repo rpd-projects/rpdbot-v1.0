@@ -73,11 +73,11 @@ function shalat($keyword) {
 	$result .= "\nTanggal : ";
 	$result .= $json['time']['date'];
 	$result .= "\n\nShubuh : ";
-	$result .= $json['data']['Subuh'];
+	$result .= $json['data']['Fajr'];
 	$result .= "\nDzuhur : ";
-	$result .= $json['data']['Dzhur'];
+	$result .= $json['data']['Dhuhr'];
 	$result .= "\nAshar : ";
-	$result .= $json['data']['Ashar'];
+	$result .= $json['data']['Asr'];
 	$result .= "\nMaghrib : ";
 	$result .= $json['data']['Maghrib'];
 	$result .= "\nIsya : ";
