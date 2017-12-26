@@ -42,12 +42,14 @@ function cuaca($keyword) {
     $response = Unirest\Request::get("$uri");
 
     $json = json_decode($response->raw_body, true);
-    $result = "Kota :";
+    $result = "====[InfoCuaca]====";
+    $result .= "\nKota : ";
 	$result .= $json['name'];
-	$result .= "\n\nCuaca : ";
+	$result .= "\nCuaca : ";
 	$result .= $json['weather']['0']['main'];
 	$result .= "\nDeskripsi : ";
 	$result .= $json['weather']['0']['description'];
+	$result .= "====[InfoCuaca]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
