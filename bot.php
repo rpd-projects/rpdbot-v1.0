@@ -67,20 +67,22 @@ function shalat($keyword) {
     $response = Unirest\Request::get("$uri");
 
     $json = json_decode($response->raw_body, true);
-    $result = "Jadwal Shalat Sekitar ";
+    $result = "====[JadwalShalat]====";
+    $result .= "\nLokasi : ";
 	$result .= $json['location']['address'];
 	$result .= "\nTanggal : ";
 	$result .= $json['time']['date'];
 	$result .= "\n\nShubuh : ";
-	$result .= $json['data']['Fajr'];
+	$result .= $json['data']['Subuh'];
 	$result .= "\nDzuhur : ";
-	$result .= $json['data']['Dhuhr'];
+	$result .= $json['data']['Dzhur'];
 	$result .= "\nAshar : ";
-	$result .= $json['data']['Asr'];
+	$result .= $json['data']['Ashar'];
 	$result .= "\nMaghrib : ";
 	$result .= $json['data']['Maghrib'];
 	$result .= "\nIsya : ";
 	$result .= $json['data']['Isha'];
+	$result .= "====[JadwalShalat]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
