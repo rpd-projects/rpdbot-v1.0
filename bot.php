@@ -200,19 +200,6 @@ if ($type == 'join' || $command == '/help') {
         )
     );
 }
-if ($message['type']=='text') {
-        if ($command == 'Apakah') {
-        $text = "Ya","Tidak","Mungkin";
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $text
-            )
-        )
-    );
-}
 //pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/cuaca') {
