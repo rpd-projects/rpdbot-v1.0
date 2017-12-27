@@ -80,7 +80,11 @@ function kalender($keyword) {
 	$result .= "\nTanggal : ";
 	$result .= $json['time']['date'];
 	$result .= "\nWaktu : ";
-	$result .= $json['time'];
+	$result .= $json['time']['time'];
+	$result .= "\nSunrise : ";
+	$result .= $json['debug']['sunrise'];
+	$result .= "\nSunset : ";
+	$result .= $json['debug']['sunset'];
 	$result .= "\n\nPencarian : Google";
 	$result .= "\n====[Kalender]====";
     return $result;
