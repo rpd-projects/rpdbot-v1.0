@@ -155,9 +155,9 @@ function lirik($keyword) {
     $json = json_decode($response->raw_body, true);
     $result = "====[Lirik]====";
     $result .= "\nJudul : ";
-	$result .= $json['data']['song[0]'];
+	$result .= $json['song[0]'];
 	$result .= "\nLirik : ";
-	$result .= $json['data']['song[5]'];
+	$result .= $json['song[5]'];
 	$result .= "\n\nPencarian : Google";
 	$result .= "\n====[Lirik]====";
     return $result;
