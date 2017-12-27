@@ -120,6 +120,7 @@ function cuaca($keyword) {
 # require_once('./src/function/hard.php');
 
 #-------------------------[Function]-------------------------#
+
 function lokasi($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
 
@@ -165,6 +166,28 @@ function lirik($keyword) {
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
 
+#-------------------------[Function]-------------------------#
+
+function zodiak($keyword) {
+    $uri = "https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=ervan&tanggal=" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "====[Zodiak]====";
+    $result .= "\nLahir : ";
+	$result .= $json['data']['lahir'];
+	$result .= "\nUsia : ";
+	$result .= $json['data']['usia'];
+	$result .= "\n\Ultah : ";
+	$result .= $json['data']['ultah'];
+	$result .= "\nZodiak : ";
+	$result .= $json['data']['zodiak'];
+	$result .= "\n\nPencarian : Google";
+	$result .= "\n====[Zodiak]====";
+    return $result;
+}
+#-------------------------[Function]-------------------------#
 //show menu, saat join dan command /menu
 if ($type == 'join' || $command == '/menu') {
     $text = "Terima kasih telah invite aku ke group ya kak..\nKetik 'Help' untuk menggunakan Bot";
@@ -184,6 +207,21 @@ if($message['type']=='text') {
 	    if ($command == '/cuaca') {
 
         $result = cuaca($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/zodiak') {
+
+        $result = zodiak($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
