@@ -1,9 +1,25 @@
 <?php
 /*
-copyright @ medantechno.com
-Modified @ Farzain - zFz
-2017
-
+✄┏━━━━┓╋╋┏┓╋╋╋╋╋┏━━┓╋╋╋╋┏┓
+✄┃┏┓┏┓┃╋╋┃┃╋╋╋╋╋┃┏┓┃╋╋╋┏┛┗┓
+✄┗┛┃┃┗╋━━┫┗━┳┓╋┏┫┗┛┗┳━━╋┓┏┛
+✄╋╋┃┃╋┃┏┓┃┏┓┃┃╋┃┃┏━┓┃┏┓┃┃┃
+✄╋╋┃┃╋┃┗┛┃┗┛┃┗━┛┃┗━┛┃┗┛┃┃┗┓
+✄╋╋┗┛╋┗━━┻━━┻━┓┏┻━━━┻━━┛┗━┛
+✄╋╋╋╋╋╋╋╋╋╋╋┏━┛┃
+✄╋╋╋╋╋╋╋╋╋╋╋┗━━┛
+✄┏━━━┓╋╋╋╋┏┓
+✄┃┏━┓┃╋╋╋╋┃┃
+✄┃┃╋┃┣━┓┏━┛┃
+✄┃┗━┛┃┏┓┫┏┓┃
+✄┃┏━┓┃┃┃┃┗┛┃
+✄┗┛╋┗┻┛┗┻━━┛
+✄┏━━━┓╋╋┏┳┓╋╋╋╋┏━━┓╋╋╋╋┏┓
+✄┃┏━━┛╋╋┃┃┃╋╋╋╋┃┏┓┃╋╋╋┏┛┗┓
+✄┃┗━━┳┳━┛┃┗━┳━━┫┗┛┗┳━━╋┓┏┛
+✄┃┏━━╋┫┏┓┃┏┓┃┏┓┃┏━┓┃┏┓┃┃┃
+✄┃┃╋╋┃┃┗┛┃┃┃┃┗┛┃┗━┛┃┗┛┃┃┗┓
+✄┗┛╋╋┗┻━━┻┛┗┻━━┻━━━┻━━┛┗━┛
 */
 
 require_once('./line_class.php');
@@ -62,34 +78,7 @@ function shalat($keyword) {
 	$result .= "\n====[JadwalShalat]====";
     return $result;
 }
-#-------------------------[Function]-------------------------#
 
-# require_once('./src/function/search-1.php');
-# require_once('./src/function/download.php');
-# require_once('./src/function/random.php');
-# require_once('./src/function/search-2.php');
-# require_once('./src/function/hard.php');
-
-#-------------------------[Function]-------------------------#"
-function kalender($keyword) {
-    $uri = "https://time.siswadi.com/pray/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "====[Kalender]====";
-	$result .= "\nTanggal : ";
-	$result .= $json['time']['date'];
-	$result .= "\nWaktu : ";
-	$result .= $json['time']['time'];
-	$result .= "\nSunrise : ";
-	$result .= $json['debug']['sunrise'];
-	$result .= "\nSunset : ";
-	$result .= $json['debug']['sunset'];
-	$result .= "\n\nPencarian : Google";
-	$result .= "\n====[Kalender]====";
-    return $result;
-}
 #-------------------------[Function]-------------------------#
 
 # require_once('./src/function/search-1.php');
@@ -113,29 +102,6 @@ function cuaca($keyword) {
 	$result .= $json['weather']['0']['description'];
 	$result .= "\n\nPencariaan : Google";
 	$result .= "\n====[InfoCuaca]====";
-    return $result;
-}
-#-------------------------[Function]-------------------------#
-
-# require_once('./src/function/search-1.php');
-# require_once('./src/function/download.php');
-# require_once('./src/function/random.php');
-# require_once('./src/function/search-2.php');
-# require_once('./src/function/hard.php');
-
-#-------------------------[Function]-------------------------#
-
-function lokasi($keyword) {
-    $uri = "https://time.siswadi.com/pray/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "====[Lokasi]====";
-    $result .= "\nLokasi : ";
-	$result .= $json['location']['address'];
-	$result .= "\n\nPencarian : Google";
-	$result .= "\n====[Lokasi]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -236,35 +202,27 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
-	    if ($command == '/lokasi') {
-
-        $result = lokasi($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
+if ($commmnd == '/kalender') {
+    $balas = array(
+        'replyToken' => $replyToken,
+        'messages' => array(
+            array(
+										'type' => 'text',					
+										'text' => '====[InfoKalender]====\nKalender : '. date('Y-m-d') .'\n\nPencariaan : Google\n====[InfoKalender]===='
             )
-        );
-    }
+        )
+    );
 }
-if($message['type']=='text') {
-	    if ($command == '/waktu') {
-
-        $result = kalender($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
+if ($commmnd == '/time') {
+    $balas = array(
+        'replyToken' => $replyToken,
+        'messages' => array(
+            array(
+										'type' => 'text',					
+										'text' => '====[InfoJam]====\nJam : '. date('H:i:s') .'\n\nPencariaan : Google\n====[InfoJam]===='
             )
-        );
-    }
+        )
+    );
 }
 //pesan bergambar
 if($message['type']=='text') {
