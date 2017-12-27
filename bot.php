@@ -38,26 +38,26 @@ if (count($pesan_datang) > 2) {
 
 #-------------------------[Function]-------------------------#
 function shalat($keyword) {
-    $uri = "http://muslimsalat.com/" . $keyword;
+    $uri = "http://muslimsalat.com/" . $keyword . ".json?key=bd099c5825cbedb9aa934e255a81a5fc";
 
     $response = Unirest\Request::get("$uri");
 
     $json = json_decode($response->raw_body, true);
     $result = "====[JadwalShalat]====";
 	$result .= "\n\Terbit : ";
-	$result .= $json['title'];
+	$result .= $json['data']['query'];
 	$result .= "\nTanggal";
-	$result .= $json['date_for'];
+	$result .= $json['data']['date_for'];
 	$result .= "\nShubuh : ";
-	$result .= $json['fajr'];
+	$result .= $json['data']['fajr'];
 	$result .= "\nDzuhur : ";
-	$result .= $json['dhuhr'];
+	$result .= $json['data']['dhuhr'];
 	$result .= "\nAshar : ";
-	$result .= $json['asr'];
+	$result .= $json['data']['asr'];
 	$result .= "\nMaghrib : ";
-	$result .= $json['maghrib'];
+	$result .= $json['data']['maghrib'];
 	$result .= "\nIsya : ";
-	$result .= $json['isha'];
+	$result .= $json['data']['isha'];
 	$result .= "====[JadwalShalat]====";
     return $result;
 }
