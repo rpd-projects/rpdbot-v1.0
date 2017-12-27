@@ -44,10 +44,6 @@ function shalat($keyword) {
 
     $json = json_decode($response->raw_body, true);
     $result = "====[JadwalShalat]====";
-    $result .= "\nLokasi : ";
-	$result .= $json['location']['address'];
-	$result .= "\nTanggal : ";
-	$result .= $json['time']['date'];
 	$result .= "\n\nShubuh : ";
 	$result .= $json['data']['Fajr'];
 	$result .= "\nDzuhur : ";
@@ -179,7 +175,7 @@ function zodiak($keyword) {
 	$result .= $json['data']['lahir'];
 	$result .= "\nUsia : ";
 	$result .= $json['data']['usia'];
-	$result .= "\n\Ultah : ";
+	$result .= "\nUltah : ";
 	$result .= $json['data']['ultah'];
 	$result .= "\nZodiak : ";
 	$result .= $json['data']['zodiak'];
@@ -249,7 +245,7 @@ if($message['type']=='text') {
     }
 }
 if($message['type']=='text') {
-	    if ($command == '/kalender') {
+	    if ($command == '/waktu') {
 
         $result = kalender($options);
         $balas = array(
