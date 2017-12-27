@@ -1,20 +1,16 @@
 <?php
 /*
-✄┏━━━━┓╋╋┏┓╋╋╋╋╋┏━━┓╋╋╋╋┏┓
-✄┃┏┓┏┓┃╋╋┃┃╋╋╋╋╋┃┏┓┃╋╋╋┏┛┗┓
-✄┗┛┃┃┗╋━━┫┗━┳┓╋┏┫┗┛┗┳━━╋┓┏┛
-✄╋╋┃┃╋┃┏┓┃┏┓┃┃╋┃┃┏━┓┃┏┓┃┃┃
-✄╋╋┃┃╋┃┗┛┃┗┛┃┗━┛┃┗━┛┃┗┛┃┃┗┓
-✄╋╋┗┛╋┗━━┻━━┻━┓┏┻━━━┻━━┛┗━┛
-✄╋╋╋╋╋╋╋╋╋╋╋┏━┛┃
-✄╋╋╋╋╋╋╋╋╋╋╋┗━━┛
+copyright @ medantechno.com
+Modified @ Farzain - zFz
+2017
+
 */
 
 require_once('./line_class.php');
 require_once('./unirest-php-master/src/Unirest.php');
 
-$channelAccessToken = 'vd1bR2yHFTI4P72I1dttBff7KDCVZBVIkRzYo9ump0w+isoeA47q+m1Jea6f8NeZu5/AiOWSXSW6zyYTuzf7XDXj8/gyblUF19yrzGr9RJpBq0fEsJEYIn53WzQCFsywFH5gnIChiLYG9JKy/hSN6wdB04t89/1O/w1cDnyilFU='; //sesuaikan 
-$channelSecret = 'b151ace4cb6df5dc6d3e4c95bdf47f92';//sesuaikan
+$channelAccessToken = 'YOUR-CHANNEL-ACCESS-TOKEN'; //sesuaikan 
+$channelSecret = 'YOUR-CHANNEL-SECRET-CODE';//sesuaikan
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 
@@ -39,6 +35,7 @@ if (count($pesan_datang) > 2) {
         $options .= $pesan_datang[$i];
     }
 }
+
 #-------------------------[Function]-------------------------#
 function shalat($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
@@ -46,8 +43,7 @@ function shalat($keyword) {
     $response = Unirest\Request::get("$uri");
 
     $json = json_decode($response->raw_body, true);
-    $result = "====[JadwalShalat]====";
-    $result .= "Lokasi : ";
+    $result = "Jadwal Shalat Sekitar ";
 	$result .= $json['location']['address'];
 	$result .= "\nTanggal : ";
 	$result .= $json['time']['date'];
@@ -61,7 +57,6 @@ function shalat($keyword) {
 	$result .= $json['data']['Maghrib'];
 	$result .= "\nIsya : ";
 	$result .= $json['data']['Isha'];
-	$result .= "====[JadwalShalat]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -91,38 +86,6 @@ function cuaca($keyword) {
 }
 #-------------------------[Function]-------------------------#
 
-# require_once('./src/function/search-1.php');
-# require_once('./src/function/download.php');
-# require_once('./src/function/random.php');
-# require_once('./src/function/search-2.php');
-# require_once('./src/function/hard.php');
-
-#-------------------------[Function]-------------------------#
-function lirik($keyword) {
-    $uri = "http://ide.fdlrcn.com/workspace/yumi-apis/joox?" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "====[Lirik]====";
-    $result .= "\nJudul : ";
-	$result .= $json['song[0]'];
-	$result .= "\nLirik : ";
-	$result .= $json['song[5]'];
-	$result .= "\n\nPencarian : Google";
-	$result .= "\n====[Lirik]====";
-    return $result;
-}
-#-------------------------[Function]-------------------------#
-
-# require_once('./src/function/search-1.php');
-# require_once('./src/function/download.php');
-# require_once('./src/function/random.php');
-# require_once('./src/function/search-2.php');
-# require_once('./src/function/hard.php');
-
-#-------------------------[Function]-------------------------#
-
 function zodiak($keyword) {
     $uri = "https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=ervan&tanggal=" . $keyword;
 
@@ -144,8 +107,8 @@ function zodiak($keyword) {
 }
 #-------------------------[Function]-------------------------#
 //show menu, saat join dan command /menu
-if ($type == 'join' || $command == '/help') {
-    $text = "Terima kasih telah invite aku ke group ya kak..\nKetik 'Help' untuk menggunakan Bot";
+if ($type == 'join' || $command == '/menu') {
+    $text = "Makasih dh invite aku ke grup!! Ketik 'Help' untuk bantuan :)";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -172,6 +135,7 @@ if($message['type']=='text') {
         );
     }
 }
+//pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/zodiak') {
 
@@ -187,43 +151,17 @@ if($message['type']=='text') {
         );
     }
 }
-if ($commmnd == '/kalender') {
-    $balas = array(
-        'replyToken' => $replyToken,
-        'messages' => array(
-            array(
-										'type' => 'text',					
-										'text' => 'Kalender: '. date('Y-m-d')
-            )
-        )
-    );
-}
 //pesan bergambar
 if($message['type']=='text') {
-	    if ($commmnd == '/lirik') {
+	    if ($command == '/shalat') {
 
-        $result = lirik($options);
+        $result = shalat($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
                 array(
                     'type' => 'text',
                     'text' => $result
-                )
-            )
-        );
-    }
-}
-
-//pesan bergambar
-if($message['type']=='text') {
-	    if ($commmnd == '/shalat') {
-        $result = shalat($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',                    'text' => $result
                 )
             )
         );
@@ -236,7 +174,7 @@ if($message['type']=='text') {
 							'messages' => array(
 								array(
 										'type' => 'text',									
-										'text' => 'Makasih Stickernya Boss'										
+										'text' => 'Makasih Stickernya....'										
 									
 									)
 							)
