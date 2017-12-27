@@ -45,19 +45,19 @@ function shalat($keyword) {
     $json = json_decode($response->raw_body, true);
     $result = "====[JadwalShalat]====";
 	$result .= "\n\Terbit : ";
-	$result .= $json['data']['title'];
+	$result .= $json['title'];
 	$result .= "\nTanggal";
-	$result .= $json['data']['date_for'];
+	$result .= $json['date_for'];
 	$result .= "\nShubuh : ";
-	$result .= $json['data']['fajr'];
+	$result .= $json['fajr'];
 	$result .= "\nDzuhur : ";
-	$result .= $json['data']['dhuhr'];
+	$result .= $json['dhuhr'];
 	$result .= "\nAshar : ";
-	$result .= $json['data']['asr'];
+	$result .= $json['asr'];
 	$result .= "\nMaghrib : ";
-	$result .= $json['data']['maghrib'];
+	$result .= $json['maghrib'];
 	$result .= "\nIsya : ";
-	$result .= $json['data']['isha'];
+	$result .= $json['isha'];
 	$result .= "====[JadwalShalat]====";
     return $result;
 }
