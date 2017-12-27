@@ -8,18 +8,6 @@
 ✄╋╋┗┛╋┗━━┻━━┻━┓┏┻━━━┻━━┛┗━┛
 ✄╋╋╋╋╋╋╋╋╋╋╋┏━┛┃
 ✄╋╋╋╋╋╋╋╋╋╋╋┗━━┛
-✄┏━━━┓╋╋╋╋┏┓
-✄┃┏━┓┃╋╋╋╋┃┃
-✄┃┃╋┃┣━┓┏━┛┃
-✄┃┗━┛┃┏┓┫┏┓┃
-✄┃┏━┓┃┃┃┃┗┛┃
-✄┗┛╋┗┻┛┗┻━━┛
-✄┏━━━┓╋╋┏┳┓╋╋╋╋┏━━┓╋╋╋╋┏┓
-✄┃┏━━┛╋╋┃┃┃╋╋╋╋┃┏┓┃╋╋╋┏┛┗┓
-✄┃┗━━┳┳━┛┃┗━┳━━┫┗┛┗┳━━╋┓┏┛
-✄┃┏━━╋┫┏┓┃┏┓┃┏┓┃┏━┓┃┏┓┃┃┃
-✄┃┃╋╋┃┃┗┛┃┃┃┃┗┛┃┗━┛┃┗┛┃┃┗┓
-✄┗┛╋╋┗┻━━┻┛┗┻━━┻━━━┻━━┛┗━┛
 */
 
 require_once('./line_class.php');
@@ -51,7 +39,6 @@ if (count($pesan_datang) > 2) {
         $options .= $pesan_datang[$i];
     }
 }
-
 #-------------------------[Function]-------------------------#
 function shalat($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
@@ -60,7 +47,11 @@ function shalat($keyword) {
 
     $json = json_decode($response->raw_body, true);
     $result = "====[JadwalShalat]====";
-	$result .= "\nSubuh : ";
+    $result .= "Lokasi : ";
+	$result .= $json['location']['address'];
+	$result .= "\nTanggal : ";
+	$result .= $json['time']['date'];
+	$result .= "\n\nShubuh : ";
 	$result .= $json['data']['Fajr'];
 	$result .= "\nDzuhur : ";
 	$result .= $json['data']['Dhuhr'];
@@ -70,15 +61,9 @@ function shalat($keyword) {
 	$result .= $json['data']['Maghrib'];
 	$result .= "\nIsya : ";
 	$result .= $json['data']['Isha'];
-	$result .= "\nTanggal : ";
-	$result .= $json['time']['date'];
-	$result .= "\nLokasi : ";
-	$result .= $json['location']['address'];
-	$result .= "\n\nPencarian : Google";
-	$result .= "\n====[JadwalShalat]====";
+	$result .= "====[JadwalShalat]====";
     return $result;
 }
-
 #-------------------------[Function]-------------------------#
 
 # require_once('./src/function/search-1.php');
@@ -208,18 +193,7 @@ if ($commmnd == '/kalender') {
         'messages' => array(
             array(
 										'type' => 'text',					
-										'text' => '====[InfoKalender]====\nKalender : '. date('Y-m-d') .'\n\nPencariaan : Google\n====[InfoKalender]===='
-            )
-        )
-    );
-}
-if ($commmnd == '/time') {
-    $balas = array(
-        'replyToken' => $replyToken,
-        'messages' => array(
-            array(
-										'type' => 'text',					
-										'text' => '====[InfoJam]====\nJam : '. date('H:i:s') .'\n\nPencariaan : Google\n====[InfoJam]===='
+										'text' => 'Kalender: '. date('Y-m-d')
             )
         )
     );
