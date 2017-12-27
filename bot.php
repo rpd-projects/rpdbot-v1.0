@@ -188,7 +188,7 @@ function zodiak($keyword) {
 }
 #-------------------------[Function]-------------------------#
 //show menu, saat join dan command /menu
-if ($type == 'join' || $command == '/menu') {
+if ($type == 'join' || $command == '/help') {
     $text = "Terima kasih telah invite aku ke group ya kak..\nKetik 'Help' untuk menggunakan Bot";
     $balas = array(
         'replyToken' => $replyToken,
@@ -200,7 +200,19 @@ if ($type == 'join' || $command == '/menu') {
         )
     );
 }
-
+if ($message['type']=='text') {
+        if ($command == 'Apakah') {
+        $text = "Ya","Tidak","Mungkin";
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $text
+            )
+        )
+    );
+}
 //pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/cuaca') {
@@ -212,22 +224,6 @@ if($message['type']=='text') {
                 array(
                     'type' => 'text',
                     'text' => $result
-                )
-            )
-        );
-    }
-}
-//pesan bergambar
-if($message['type']=='text') {
-	    if ($command == 'Apakah') {
-
-        $text = "Ya","Tidak","Mungkin";
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $text
                 )
             )
         );
