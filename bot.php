@@ -58,7 +58,7 @@ function shalat($keyword) {
 	$result .= $json['data']['Maghrib'];
 	$result .= "\nIsya : ";
 	$result .= $json['data']['Isha'];
-	$result .= "====[JadwalShalat]====";,
+	$result .= "====[JadwalShalat]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
