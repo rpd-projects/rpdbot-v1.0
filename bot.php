@@ -217,6 +217,22 @@ if($message['type']=='text') {
         );
     }
 }
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == 'Apakah') {
+
+        $text = "Ya","Tidak","Mungkin";
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $text
+                )
+            )
+        );
+    }
+}
 if($message['type']=='text') {
 	    if ($command == '/zodiak') {
 
@@ -287,8 +303,7 @@ if($message['type']=='text') {
             'replyToken' => $replyToken,
             'messages' => array(
                 array(
-                    'type' => 'text',
-                    'text' => $result
+                    'type' => 'text',                    'text' => $result
                 )
             )
         );
