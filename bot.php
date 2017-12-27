@@ -36,7 +36,7 @@ if (count($pesan_datang) > 2) {
     }
 }
 
-#-------------------------[Function]-------------------------#"
+#-------------------------[Function]-------------------------#
 function shalat($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
 
@@ -44,6 +44,10 @@ function shalat($keyword) {
 
     $json = json_decode($response->raw_body, true);
     $result = "====[JadwalShalat]====";
+    $result .= "\nLokasi : ";
+	$result .= $json['location']['address'];
+	$result .= "\nTanggal : ";
+	$result .= $json['time']['date'];
 	$result .= "\n\nShubuh : ";
 	$result .= $json['data']['Fajr'];
 	$result .= "\nDzuhur : ";
@@ -54,8 +58,7 @@ function shalat($keyword) {
 	$result .= $json['data']['Maghrib'];
 	$result .= "\nIsya : ";
 	$result .= $json['data']['Isha'];
-	$result .= "\n\nPencarian : Google";
-	$result .= "\n====[JadwalShalat]====";
+	$result .= "====[JadwalShalat]====";,
     return $result;
 }
 #-------------------------[Function]-------------------------#
