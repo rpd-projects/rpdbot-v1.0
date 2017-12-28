@@ -304,6 +304,7 @@ if($message['type']=='text') {
          break;
          case 3: $key = "Mungkin";
          break;
+}
             'replyToken' => $replyToken, 
             'messages' => array( 
                 array(
