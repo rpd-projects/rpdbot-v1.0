@@ -75,7 +75,7 @@ function kalender($keyword) {
 	$result .= "\nTanggal : ";
 	$result .= $json['time']['date'];
 	$result .= "\n\nPencarian : Google";
-	$result .= "====[Kalender]====";
+	$result .= "\n====[Kalender]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
