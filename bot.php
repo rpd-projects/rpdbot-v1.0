@@ -280,6 +280,43 @@ if($message['type']=='text') {
 }
 //pesan bergambar
 if($message['type']=='text') {
+	    if ($command == 'Bot') {
+
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => 'Apa '.$profil->displayName.' manggil-manggil aku'
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') { 
+     if ($command == 'Apakah') { 
+ 
+         $acak = rand(1, 3);
+         switch($acak){
+         case 1: $key = "Tidak";
+         break;
+         case 2: $key = "Ya";
+         break;
+         case 3: $key = "Mungkin";
+         break;
+            'replyToken' => $replyToken, 
+            'messages' => array( 
+                array(
+                    'type' => 'text', 
+                    'text' => $acak
+                ) 
+            ) 
+        ); 
+    } 
+}
+  
+//pesan bergambar
+if($message['type']=='text') {
 	    if ($command == '/shalat') {
 
         $result = shalat($options);
