@@ -263,7 +263,7 @@ if($message['type']=='text') {
             'messages' => array(
                 array(
                     'type' => 'text',
-                    'text' => $acak
+                    'text' => $key
                 )
             )
         );
@@ -303,7 +303,7 @@ if($message['type']=='text') {
 }
 //pesan bergambar
 if($message['type']=='text') {
-	    if ($command == 'Bot' | 'Steve' ) {
+	    if ($command == 'Bot' || $command == 'Steve' ) {
 
         $balas = array(
             'replyToken' => $replyToken,
@@ -311,6 +311,36 @@ if($message['type']=='text') {
                 array(
                     'type' => 'text',
                     'text' => 'Apa '.$profil->displayName.' manggil-manggil aku'
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == 'Halo' || $command == 'Hai' ) {
+
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => 'Hallo '.$profil->displayName.' juga'
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == 'Hi' || $command == 'Hallo' ) {
+
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => 'Hallo '.$profil->displayName.' juga'
                 )
             )
         );
