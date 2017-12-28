@@ -43,7 +43,8 @@ function shalat($keyword) {
     $response = Unirest\Request::get("$uri");
 
     $json = json_decode($response->raw_body, true);
-    $result = "Jadwal Shalat Sekitar ";
+    $result = "====[JadwalShalat]====";
+    $result .= "\nLokasi : ";
 	$result .= $json['location']['address'];
 	$result .= "\nTanggal : ";
 	$result .= $json['time']['date'];
@@ -57,6 +58,8 @@ function shalat($keyword) {
 	$result .= $json['data']['Maghrib'];
 	$result .= "\nIsya : ";
 	$result .= $json['data']['Isha'];
+	$result .= "\n\nPencarian : Google";
+	$result .= "\n====[JadwalShalat]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -67,6 +70,18 @@ function shalat($keyword) {
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
 
+#-------------------------[Function]-------------------------#
+function lokasi($keyword) {
+    $uri = "https://time.siswadi.com/pray/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "====[Location]====";
+    $result .= "\nLokasi : ";
+	$result .= $json['location']['address'];
+	$result .= "\n\nPencarian : Google";
+	$result .= "====[Location]====";
 #-------------------------[Function]-------------------------#
 function cuaca($keyword) {
     $uri = "http://api.openweathermap.org/data/2.5/weather?q=" . $keyword . ",ID&units=metric&appid=e172c2f3a3c620591582ab5242e0e6c4";
