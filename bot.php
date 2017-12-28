@@ -63,6 +63,42 @@ function shalat($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
+function kalender($keyword) {
+    $uri = "https://time.siswadi.com/pray/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "====[Kalender]====";
+    $result .= "\nLokasi : ";
+	$result .= $json['location']['address'];
+	$result .= "\nTanggal : ";
+	$result .= $json['time']['date'];
+	$result .= "\n\nPencarian : Google";
+	$result .= "====[Kalender]====";
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+function waktu($keyword) {
+    $uri = "https://time.siswadi.com/pray/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "====[Time]====";
+    $result .= "\nLokasi : ";
+	$result .= $json['location']['address'];
+	$result .= "\nJam : ";
+	$result .= $json['time']['time'];
+	$result .= "\nSunrise : ";
+	$result .= $json['debug']['sunrise'];
+	$result .= "\nSunset : ";
+	$result .= $json['debug']['sunset'];
+	$result .= "\n\nPencarian : Google";
+	$result .= "\n====[Time]====";
+    return $result;
+}
+#-------------------------[Function]-------------------------#
 
 # require_once('./src/function/search-1.php');
 # require_once('./src/function/download.php');
@@ -81,7 +117,7 @@ function lokasi($keyword) {
     $result .= "\nLokasi : ";
 	$result .= $json['location']['address'];
 	$result .= "\n\nPencarian : Google";
-	$result .= "====[Location]====";
+	$result .= "\n====[Location]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -157,6 +193,38 @@ if($message['type']=='text') {
 	    if ($command == '/lokasi') {
 
         $result = lokasi($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/kalender') {
+
+        $result = kalender($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/time') {
+
+        $result = waktu($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
