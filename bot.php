@@ -29,13 +29,21 @@ $pesan_datang = explode(" ", $message['text']);
 
 $command = $pesan_datang[0];
 $options = $pesan_datang[1];
+$acak = rand(1, 4);
+switch($acak){
+case 1: $key = "YA";
+break;
+case 2: $key = "TIDAK";
+break;
+case 3: $key = "BISA JADI";
+break;
+case 4: $key = "BODO AMAT";
+break;
+}
 if (count($pesan_datang) > 2) {
     for ($i = 2; $i < count($pesan_datang); $i++) {
         $options .= '+';
         $options .= $pesan_datang[$i];
-    }
-}
-
 #-------------------------[Function]-------------------------#
 function say($keyword) { 
     $uri = "https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=" . $keyword . "&tanggal=10-05-2003"; 
@@ -246,6 +254,19 @@ if($message['type']=='text') {
         );
     }
 }
+if($message['type']=='text') {
+	    if ('Apakah' == $command) {
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $acak
+                )
+            )
+        );
+    }
+}
 //pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/time') {
@@ -280,7 +301,7 @@ if($message['type']=='text') {
 }
 //pesan bergambar
 if($message['type']=='text') {
-	    if ($command == 'Bot') {
+	    if ($command == 'Bot' | 'Steve' ) {
 
         $balas = array(
             'replyToken' => $replyToken,
@@ -293,29 +314,6 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') { 
-     if ($command == 'Apakah') { 
- 
-         $acak = rand(1, 3);
-         switch($acak){
-         case 1: $key = "Tidak";
-         break;
-         case 2: $key = "Ya";
-         break;
-         case 3: $key = "Mungkin";
-         break;
-}
-            'replyToken' => $replyToken, 
-            'messages' => array( 
-                array(
-                    'type' => 'text', 
-                    'text' => $acak
-                ) 
-            ) 
-        ); 
-    } 
-}
-  
 //pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/shalat') {
