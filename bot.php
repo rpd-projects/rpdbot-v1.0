@@ -29,7 +29,7 @@ $pesan_datang = explode(" ", $message['text']);
 
 $command = $pesan_datang[0];
 $options = $pesan_datang[1];
-$acak = rand(1, 4);
+$acak = rand($key);
 switch($acak){
 case 1: $key = "Ya";
 break;
@@ -263,7 +263,7 @@ if($message['type']=='text') {
             'messages' => array(
                 array(
                     'type' => 'text',
-                    'text' => $key
+                    'text' => $acak
                 )
             )
         );
@@ -325,7 +325,7 @@ if($message['type']=='text') {
             'messages' => array(
                 array(
                     'type' => 'text',
-                    'text' => 'Hallo '.$profil->displayName.' juga'
+                    'text' => 'Hallo '.$profil->displayName
                 )
             )
         );
@@ -340,7 +340,7 @@ if($message['type']=='text') {
             'messages' => array(
                 array(
                     'type' => 'text',
-                    'text' => 'Hallo '.$profil->displayName.' juga'
+                    'text' => 'Hallo '.$profil->displayName
                 )
             )
         );
