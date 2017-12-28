@@ -31,19 +31,21 @@ $command = $pesan_datang[0];
 $options = $pesan_datang[1];
 $acak = rand(1, 4);
 switch($acak){
-case 1: $key = "YA";
+case 1: $key = "Ya";
 break;
-case 2: $key = "TIDAK";
+case 2: $key = "Tidak";
 break;
-case 3: $key = "BISA JADI";
+case 3: $key = "Bisa jadi";
 break;
-case 4: $key = "BODO AMAT";
+case 4: $key = "Coba ajukan pertanyaan lain";
 break;
 }
 if (count($pesan_datang) > 2) {
     for ($i = 2; $i < count($pesan_datang); $i++) {
         $options .= '+';
         $options .= $pesan_datang[$i];
+    }
+}
 #-------------------------[Function]-------------------------#
 function say($keyword) { 
     $uri = "https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=" . $keyword . "&tanggal=10-05-2003"; 
