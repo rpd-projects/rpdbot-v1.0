@@ -82,6 +82,7 @@ function lokasi($keyword) {
 	$result .= $json['location']['address'];
 	$result .= "\n\nPencarian : Google";
 	$result .= "====[Location]====";
+    return $result;
 }
 #-------------------------[Function]-------------------------#
 function cuaca($keyword) {
