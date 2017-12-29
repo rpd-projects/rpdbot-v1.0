@@ -29,13 +29,13 @@ $command = $pesan_datang[0];
 $options = $pesan_datang[1];
 $acak = rand($key);
 switch($acak){
-case 1: $key = "Ya";
+case $key = "Ya";
 break;
-case 2: $key = "Tidak";
+case $key = "Tidak";
 break;
-case 3: $key = "Bisa jadi";
+case $key = "Bisa jadi";
 break;
-case 4: $key = "Coba ajukan pertanyaan lain";
+case $key = "Coba ajukan pertanyaan lain";
 break;
 }
 if (count($pesan_datang) > 2) {
