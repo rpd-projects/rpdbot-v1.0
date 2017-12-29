@@ -362,6 +362,73 @@ if($message['type']=='text') {
         );
     }
 }
+if ($command_datang == '/zodiak') {
+    $balas = array(
+        'replyToken' => $replyToken,
+        'messages' => array(
+            array(
+                        "type" => "template",
+                        "altText" => "Example",
+                        "template" => array(
+                            "type" => "carousel",
+                            "columns" => array(
+                                array(
+                                    //"thumbnailImageUrl"=> "https://example.com/bot/images/item1.jpg",
+                                    "imageBackgroundColor"=> "#FFFFFF",
+                                    "title" => "Judul",
+                                    "text" => "Deskripsi",
+                                    "actions" => array(
+                                        array(
+                                            'type' => 'message',
+                                            'label' => 'Label',
+                                            'text' => 'text',
+                                        ),
+                                    ),
+                                ),
+                                array(
+                                    //"thumbnailImageUrl"=> "https://example.com/bot/images/item2.jpg",
+                                    "title" => "Judul",
+                                    "text" => "Deskripsi",
+                                    "actions" => array(
+                                        array(
+                                            'type' => 'message',
+                                            'label' => 'Label',
+                                            'text' => 'text',
+                                        ),
+                                    ),
+                                ),
+                                array(
+                                    //"thumbnailImageUrl"=> "https://example.com/bot/images/item2.jpg",
+                                    "title" => "Judul",
+                                    "text" => "Deskripsi",
+                                    "actions" => array(
+                                        array(
+                                            'type' => 'message',
+                                            'label' => 'Label',
+                                            'text' => 'text',
+                                        ),
+                                    ),
+                                ),
+                                array(
+                                    //"thumbnailImageUrl"=> "https://example.com/bot/images/item2.jpg",
+                                    "title" => "Judul",
+                                    "text" => "Deskripsi",
+                                    "actions" => array(
+                                        array(
+                                            'type' => 'message',
+                                            'label' => 'Label',
+                                            'text' => 'text',
+                                        ),
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            );
+    
+        } else {}
+    } else {}
 if (isset($balas)) {
     $result = json_encode($balas);
 //$result = ob_get_clean();
