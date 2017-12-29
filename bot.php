@@ -1,9 +1,7 @@
 <?php
 /*
-copyright @ medantechno.com
-Modified @ Farzain - zFz
-2017
-
+Toby tamvan :v
+Support by : Mastah Ervan
 */
 
 require_once('./line_class.php');
@@ -192,6 +190,12 @@ if ($type == 'join' || $command == '/menu') {
         )
     );
 }
+
+if($message['type']=='text') {
+        if ('/bye' == $command) {
+            $client->leave($userId);
+        }
+    }
 if($message['type']=='text') {
 	    if ($command == '/say') {
 
