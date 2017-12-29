@@ -193,7 +193,7 @@ if ($type == 'join' || $command == '/menu') {
 
 if($message['type']=='text') {
         if ('/bye' == $command) {
-            $client->leave($userId);
+            $client->leave($groupId);
         }
     }
 if($message['type']=='text') {
