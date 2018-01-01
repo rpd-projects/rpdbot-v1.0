@@ -29,13 +29,13 @@ $command = $pesan_datang[0];
 $options = $pesan_datang[1];
 $acak = rand($key);
 switch($acak){
-case $key = "Ya";
+case 1: $key = "Ya";
 break;
-case $key = "Tidak";
+case 2: $key = "Tidak";
 break;
-case $key = "Bisa jadi";
+case 3: $key = "Bisa jadi";
 break;
-case $key = "Coba ajukan pertanyaan lain";
+case 4: $key = "Coba ajukan pertanyaan lain";
 break;
 }
 if (count($pesan_datang) > 2) {
@@ -52,6 +52,34 @@ function say($keyword) {
  
     $json = json_decode($response->raw_body, true); 
  $result .= $json['data']['nama']; 
+    return $result; 
+}
+#-------------------------[Function]-------------------------#
+function lirik($keyword) { 
+    $uri = "http://ide.fdlrcn.com/workspace/yumi-apis/joox?songname=" . $keyword . ""; 
+ 
+    $response = Unirest\Request::get("$uri"); 
+ 
+    $json = json_decode($response->raw_body, true); 
+    $result .= "Judul : ";
+    $result .= $json['0']['0'];
+    $result .= "\nLyrics :\n";
+    $result .= $json['0']['5'];
+    return $result; 
+}
+#-------------------------[Function]-------------------------#
+function music($keyword) { 
+    $uri = "http://ide.fdlrcn.com/workspace/yumi-apis/joox?songname=" . $keyword . ""; 
+ 
+    $response = Unirest\Request::get("$uri"); 
+ 
+    $json = json_decode($response->raw_body, true); 
+    $result .= "Judul : ";
+    $result .= $json['0']['0'];
+    $result .= "\nDurasi : ";
+    $result .= $json['0']['1'];
+    $result .= "\nLink : ";
+    $result .= $json['0']['4'];
     return $result; 
 }
 #-------------------------[Function]-------------------------#
@@ -190,12 +218,6 @@ if ($type == 'join' || $command == '/menu') {
         )
     );
 }
-
-if($message['type']=='text') {
-        if ($command == '/byeee') {
-            $client->leave($groupId);
-        }
-    }
 if($message['type']=='text') {
 	    if ($command == '/say') {
 
@@ -217,6 +239,22 @@ if($message['type']=='text') {
 	    if ($command == '/cuaca') {
 
         $result = cuaca($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/lirik') {
+
+        $result = lirik($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
@@ -278,6 +316,22 @@ if($message['type']=='text') {
 	    if ($command == '/time') {
 
         $result = waktu($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/music') {
+
+        $result = music($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
