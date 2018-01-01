@@ -61,10 +61,13 @@ function lirik($keyword) {
     $response = Unirest\Request::get("$uri"); 
  
     $json = json_decode($response->raw_body, true); 
+    $result = "====[Lyrics]====";
     $result .= "Judul : ";
     $result .= $json['0']['0'];
     $result .= "\nLyrics :\n";
     $result .= $json['0']['5'];
+    $result .= "\n\nPencarian : Google";
+    $result .= "\n====[Lyrics]====";
     return $result; 
 }
 #-------------------------[Function]-------------------------#
@@ -74,12 +77,15 @@ function music($keyword) {
     $response = Unirest\Request::get("$uri"); 
  
     $json = json_decode($response->raw_body, true); 
+    $result = "====[Music]====";
     $result .= "Judul : ";
     $result .= $json['0']['0'];
     $result .= "\nDurasi : ";
     $result .= $json['0']['1'];
     $result .= "\nLink : ";
     $result .= $json['0']['4'];
+    $result .= "\n\nPencarian : Google";
+    $result .= "\n====[Music]====";
     return $result; 
 }
 #-------------------------[Function]-------------------------#
