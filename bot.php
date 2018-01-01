@@ -62,7 +62,7 @@ function lirik($keyword) {
  
     $json = json_decode($response->raw_body, true); 
     $result = "====[Lyrics]====";
-    $result .= "Judul : ";
+    $result .= "\nJudul : ";
     $result .= $json['0']['0'];
     $result .= "\nLyrics :\n";
     $result .= $json['0']['5'];
@@ -78,7 +78,7 @@ function music($keyword) {
  
     $json = json_decode($response->raw_body, true); 
     $result = "====[Music]====";
-    $result .= "Judul : ";
+    $result .= "\nJudul : ";
     $result .= $json['0']['0'];
     $result .= "\nDurasi : ";
     $result .= $json['0']['1'];
