@@ -214,6 +214,33 @@ function waktu($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
+function saveitoffline($keyword) {
+    $uri = "https://www.saveitoffline.com/process/?url=" . $keyword . '&type=json';
+
+    $response = Unirest\Request::get("$uri");
+
+
+    $json = json_decode($response->raw_body, true);
+	$result = "Judul : \n";
+	$result .= $json['title'];
+	$result .= "\n\nUkuran : \n";
+	$result .= $json['urls'][0]['label'];
+	$result .= "\n\nURL Download : \n";
+	$result .= $json['urls'][0]['id'];
+	$result .= "\n\nUkuran : \n";
+	$result .= $json['urls'][1]['label'];
+	$result .= "\n\nURL Download : \n";
+	$result .= $json['urls'][1]['id'];
+	$result .= "\n\nUkuran : \n";
+	$result .= $json['urls'][2]['label'];	
+	$result .= "\n\nURL Download : \n";
+	$result .= $json['urls'][2]['id'];
+	$result .= "\n\nUkuran : \n";
+	$result .= $json['urls'][3]['label'];	
+	$result .= "\n\nURL Download : \n";
+	$result .= $json['urls'][3]['id'];	
+    return $result;
+}
 #-------------------------[Function]-------------------------#
 
 # require_once('./src/function/search-1.php');
