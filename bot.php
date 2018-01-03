@@ -353,6 +353,7 @@ if($message['type']=='text') {
             )
         );
     }
+}
 if($message['type']=='text') {
 	    if ($command == '/anime') {
         $result = anime($options);
@@ -388,6 +389,7 @@ if($message['type']=='text') {
             )
         );
     }
+}
 if($message['type']=='text') {
 	    if ($command == '/anime-syn') {
 
@@ -401,19 +403,8 @@ if($message['type']=='text') {
                 )
             )
         );
-    } else if ($command == '/shalat') {
-
-        $result = shalat($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $result
-                )
-            )
-        );
     }
+}
 //pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/lirik') {
