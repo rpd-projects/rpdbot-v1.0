@@ -45,6 +45,69 @@ if (count($pesan_datang) > 2) {
     }
 }
 #-------------------------[Function]-------------------------#
+function film_syn($keyword) {
+    $uri = "http://www.omdbapi.com/?t=" . $keyword . '&plot=full&apikey=d5010ffe';
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Judul : \n";
+	$result .= $json['Title'];
+	$result .= "\n\nSinopsis : \n";
+	$result .= $json['Plot'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+function anime($keyword) {
+
+    $fullurl = 'https://myanimelist.net/api/anime/search.xml?q=' . $keyword;
+    $username = 'jamal3213';
+    $password = 'FZQYeZ6CE9is';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_VERBOSE, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_URL, $fullurl);
+
+    $returned = curl_exec($ch);
+    $xml = new SimpleXMLElement($returned);
+    $parsed = array();
+
+    $parsed['id'] = (string) $xml->entry[0]->id;
+    $parsed['image'] = (string) $xml->entry[0]->image;
+    $parsed['title'] = (string) $xml->entry[0]->title;
+    $parsed['desc'] = "Episode : ";
+    $parsed['desc'] .= $xml->entry[0]->episodes;
+    $parsed['desc'] .= "\nNilai : ";
+    $parsed['desc'] .= $xml->entry[0]->score;
+    $parsed['desc'] .= "\nTipe : ";
+    $parsed['desc'] .= $xml->entry[0]->type;
+    $parsed['synopsis'] = str_replace("<br />", "\n", html_entity_decode((string) $xml->entry[0]->synopsis, ENT_QUOTES | ENT_XHTML, 'UTF-8'));
+    return $parsed;
+}
+#-------------------------[Function]-------------------------#
+function anime_syn($title) {
+    $parsed = anime($title);
+    $result = "Judul : " . $parsed['title'];
+    $result .= "\n\nSynopsis :\n" . $parsed['synopsis'];
+    return $result;
+}
+
+function urb_dict($keyword) {
+    $uri = "http://api.urbandictionary.com/v0/define?term=" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+
+    $json = json_decode($response->raw_body, true);
+    $result = $json['list'][0]['definition'];
+    $result .= "\n\nExamples : \n";
+    $result .= $json['list'][0]['example'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
 function say($keyword) { 
     $uri = "https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=" . $keyword . "&tanggal=10-05-2003"; 
  
@@ -52,6 +115,40 @@ function say($keyword) {
  
     $json = json_decode($response->raw_body, true); 
  $result .= $json['data']['nama']; 
+    return $result; 
+}
+#-------------------------[Function]-------------------------#
+function lirik($keyword) { 
+    $uri = "http://ide.fdlrcn.com/workspace/yumi-apis/joox?songname=" . $keyword . ""; 
+ 
+    $response = Unirest\Request::get("$uri"); 
+ 
+    $json = json_decode($response->raw_body, true); 
+    $result = "====[Lyrics]====";
+    $result .= "\nJudul : ";
+    $result .= $json['0']['0'];
+    $result .= "\nLyrics :\n";
+    $result .= $json['0']['5'];
+    $result .= "\n\nPencarian : Google";
+    $result .= "\n====[Lyrics]====";
+    return $result; 
+}
+#-------------------------[Function]-------------------------#
+function music($keyword) { 
+    $uri = "http://ide.fdlrcn.com/workspace/yumi-apis/joox?songname=" . $keyword . ""; 
+ 
+    $response = Unirest\Request::get("$uri"); 
+ 
+    $json = json_decode($response->raw_body, true); 
+    $result = "====[Music]====";
+    $result .= "\nJudul : ";
+    $result .= $json['0']['0'];
+    $result .= "\nDurasi : ";
+    $result .= $json['0']['1'];
+    $result .= "\nLink : ";
+    $result .= $json['0']['4'];
+    $result .= "\n\nPencarian : Google";
+    $result .= "\n====[Music]====";
     return $result; 
 }
 #-------------------------[Function]-------------------------#
@@ -117,6 +214,19 @@ function waktu($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
+function urb_dict($keyword) {
+    $uri = "http://api.urbandictionary.com/v0/define?term=" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+
+    $json = json_decode($response->raw_body, true);
+    $result = $json['list'][0]['definition'];
+    $result .= "\n\nExamples : \n";
+    $result .= $json['list'][0]['example'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
 
 # require_once('./src/function/search-1.php');
 # require_once('./src/function/download.php');
@@ -124,20 +234,19 @@ function waktu($keyword) {
 # require_once('./src/function/search-2.php');
 # require_once('./src/function/hard.php');
 
-#-------------------------[Function]-------------------------#
-function lokasi($keyword) {
-    $uri = "https://time.siswadi.com/pray/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "====[Location]====";
-    $result .= "\nLokasi : ";
-	$result .= $json['location']['address'];
-	$result .= "\n\nPencarian : Google";
-	$result .= "\n====[Location]====";
-    return $result;
+// ----- LOCATION BY FIDHO -----
+function lokasi($keyword) { 
+    $uri = "https://time.siswadi.com/pray/" . $keyword; 
+ 
+    $response = Unirest\Request::get("$uri"); 
+ 
+    $json = json_decode($response->raw_body, true); 
+ $result['address'] .= $json['location']['address'];
+ $result['latitude'] .= $json['location']['latitude'];
+ $result['longitude'] .= $json['location']['longitude'];
+    return $result; 
 }
+
 #-------------------------[Function]-------------------------#
 function cuaca($keyword) {
     $uri = "http://api.openweathermap.org/data/2.5/weather?q=" . $keyword . ",ID&units=metric&appid=e172c2f3a3c620591582ab5242e0e6c4";
@@ -154,6 +263,71 @@ function cuaca($keyword) {
 	$result .= "\n\nPencariaan : Google";
 	$result .= "\n====[InfoCuaca]====";
     return $result;
+}
+#-------------------------[Function]-------------------------#
+function send($input, $rt){
+    $send = array(
+        'replyToken' => $rt,
+        'messages' => array(
+            array(
+                'type' => 'text',					
+                'text' => $input
+            )
+        )
+    );
+    return($send);
+}
+
+function jawabs(){
+    $list_jwb = array(
+		'Ya',
+		'Tentu Iya',	    
+		'Tidak',
+		'Tentu Tidak',	    
+		'Bisa jadi',
+		'Mungkin',
+		'Coba tanya lagi',
+		'lebih keras',	    
+		'Coba sekali lagi'
+		);
+    $jaws = array_rand($list_jwb);
+    $jawab = $list_jwb[$jaws];
+    return($jawab);
+}
+
+function dosa(){
+    $list_jwb = array(
+		'10%',
+		'20%',
+		'30%',
+		'40%',
+		'50%',
+		'60%',
+		'70%',
+		'80%',
+		'90%',
+		'100%'	
+		);
+    $jaws = array_rand($list_jwb);
+    $jawab = $list_jwb[$jaws];
+    return($jawab);
+}
+
+function dosa2(){
+    $list_jwb = array(
+		'Dosanya Sebesar ',
+		);
+    $jaws = array_rand($list_jwb);
+    $jawab = $list_jwb[$jaws];
+    return($jawab);
+}
+function dosa3(){
+    $list_jwb = array(
+		' Cepat cepat tobat bos',
+		);
+    $jaws = array_rand($list_jwb);
+    $jawab = $list_jwb[$jaws];
+    return($jawab);
 }
 #-------------------------[Function]-------------------------#
 
@@ -178,8 +352,25 @@ function zodiak($keyword) {
 }
 #-------------------------[Function]-------------------------#
 //show menu, saat join dan command /menu
-if ($type == 'join' || $command == '/menu') {
-    $text = "Makasih dh invite aku ke grup!! Ketik 'Help' untuk bantuan :)";
+if ($type == 'join' || $command == 'Help') {
+    $text = "Makasih dh invite aku ke grup kak!! Ketik Help untuk gunain aku";
+    $text .= "Keyword Steve ~~~\n";
+    $text .= "> /anime-syn [text]\n";
+    $text .= "> /anime [text]\n";
+    $text .= "> /yt-get [link]\n";
+    $text .= "> /music [lagu]\n";
+    $text .= "> /say [text]\n";
+    $text .= "> /lirik [lagu]\n";
+    $text .= "> /shalat [namakota]\n";
+    $text .= "> /zodiak [tanggallahir]\n";
+    $text .= "> /lokasi [namakota]\n";
+    $text .= "> /time [namakota]\n";
+    $text .= "> /kalender [namakota]\n";
+    $text .= "> /cuaca [namakota]\n";
+    $text .= "> /film-syn [namafilm]\n";
+    $text .= "> /yt [link]\n";
+    $text .= "> /creator\n";
+    $text .= "> /about\n";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -190,12 +381,49 @@ if ($type == 'join' || $command == '/menu') {
         )
     );
 }
+//pesan bergambar
+if ($message['type'] == 'text') {
+    if ($command == '/def') {
 
-if($message['type']=='text') {
-        if ('/bye' == $command) {
-            $client->leave($userId);
-        }
+
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => 'Definition : ' . urb_dict($options)
+                )
+            )
+        );
     }
+}
+if($msg_type == 'text'){
+    $pesan_datang = strtolower($message['text']);
+    $filter = explode(' ', $pesan_datang);
+    if($filter[0] == 'apakah') {
+        $balas = send(jawabs(), $replyToken);
+    } else {}
+} if($msg_type == 'text'){
+    $pesan_datang = strtolower($message['text']);
+    $filter = explode(' ', $pesan_datang);
+    if($filter[0] == 'bisakah') {
+        $balas = send(jawabs(), $replyToken);
+    } else {}
+} if($msg_type == 'text'){
+    $pesan_datang = strtolower($message['text']);
+    $filter = explode(' ', $pesan_datang);
+    if($filter[0] == 'mungkinkah') {
+        $balas = send(jawabs(), $replyToken);
+    } else {}
+} if($msg_type == 'text'){
+    $pesan_datang = strtolower($message['text']);
+    $filter = explode(' ', $pesan_datang);
+    if($filter[0] == 'dosanya') {
+		$balas = send(dosa2(), $replyToken);
+        $balas = send(dosa(), $replyToken);
+		$balas = send(dosa3(), $replyToken);
+    } else {}
+} else {}
 if($message['type']=='text') {
 	    if ($command == '/say') {
 
@@ -230,9 +458,79 @@ if($message['type']=='text') {
 }
 //pesan bergambar
 if($message['type']=='text') {
-	    if ($command == '/lokasi') {
+	    if ($command == '/yt-get') {
+        $result = saveitoffline($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => saveitoffline($options)
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/yt') {
+        $keyword = 'Zl_ZeIMHWjc';
+        $image = 'https://img.youtube.com/vi/' . $keyword . '/2.jpg';
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'image',
+                    'originalContentUrl' => $image,
+                    'previewImageUrl' => $image
+                ), array(
+                    'type' => 'video',
+                    'originalContentUrl' => vid_search($keyword),
+                    'previewImageUrl' => $image
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/anime') {
+        $result = anime($options);
+        $altText = "Title : " . $result['title'];
+        $altText .= "\n\n" . $result['desc'];
+        $altText .= "\nMAL Page : https://myanimelist.net/anime/" . $result['id'];
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'template',
+                    'altText' => $altText,
+                    'template' => array(
+                        'type' => 'buttons',
+                        'title' => $result['title'],
+                        'thumbnailImageUrl' => $result['image'],
+                        'text' => $result['desc'],
+                        'actions' => array(
+                            array(
+                                'type' => 'postback',
+                                'label' => 'Baca Sinopsis-nya',
+                                'data' => 'action=add&itemid=123',
+                                'text' => '/anime-syn ' . $options
+                            ),
+                            array(
+                                'type' => 'uri',
+                                'label' => 'Website MAL',
+                                'uri' => 'https://myanimelist.net/anime/' . $result['id']
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/anime-syn') {
 
-        $result = lokasi($options);
+        $result = anime_syn($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
@@ -243,6 +541,57 @@ if($message['type']=='text') {
             )
         );
     }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/lirik') {
+
+        $result = lirik($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+        if ($command == '/film-syn') {
+        $result = film_syn($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array( 
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+// ----- LOKASI BY FIDHO -----
+if($message['type']=='text') {
+	    if ($command == '/lokasi' || $command == '/Lokasi') {
+
+        $result = lokasi($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'location',
+                    'title' => 'Lokasi',
+                    'address' => $result['address'],
+                    'latitude' => $result['latitude'],
+                    'longitude' => $result['longitude']
+                ),
+            )
+        );
+    }
+
 }
 //pesan bergambar
 if($message['type']=='text') {
@@ -278,6 +627,22 @@ if($message['type']=='text') {
 	    if ($command == '/time') {
 
         $result = waktu($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/music') {
+
+        $result = music($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
