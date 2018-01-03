@@ -214,18 +214,6 @@ function waktu($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
-function urb_dict($keyword) {
-    $uri = "http://api.urbandictionary.com/v0/define?term=" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-
-    $json = json_decode($response->raw_body, true);
-    $result = $json['list'][0]['definition'];
-    $result .= "\n\nExamples : \n";
-    $result .= $json['list'][0]['example'];
-    return $result;
-}
 #-------------------------[Function]-------------------------#
 
 # require_once('./src/function/search-1.php');
