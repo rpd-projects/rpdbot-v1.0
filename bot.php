@@ -383,7 +383,7 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /kalender [namakota]\n";
     $text .= "> /cuaca [namakota]\n";
     $text .= "> /film-syn [namafilm]\n";
-    $text .= "> /yt [link]\n";
+    $text .= "> /myinfo";
     $text .= "> /creator\n";
     $text .= "> /about\n";
     $balas = array(
@@ -396,6 +396,26 @@ if ($type == 'join' || $command == 'Help') {
         )
     );
 }
+if ($command_datang == '/MyInfo' || $command_datang == '/myinfo') {
+    $balas = array(
+        'replyToken' => $replyToken,
+        'messages' => array(
+            array(
+
+										'type' => 'text',					
+										'text' => '====[InfoProfile]====
+Nama: '.$profil->displayName.'
+
+Status: '.$profil->statusMessage.'
+
+Picture: '.$profil->pictureUrl.'
+
+====[InfoProfile]===='
+									)
+							)
+						);
+				
+	}
 //pesan bergambar
 if ($message['type'] == 'text') {
     if ($command == '/def') {
