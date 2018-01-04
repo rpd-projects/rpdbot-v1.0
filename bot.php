@@ -198,7 +198,6 @@ function qibla($keyword) {
 	$result = $json['data']['image'];
 	$result .= $json['data']['kabah'];
 	$result .= $json['data']['derajat'];
-	$result .= $json['data']['kompas'];
     return $result;
 }
 #-------------------------[Function]-------------------------#
