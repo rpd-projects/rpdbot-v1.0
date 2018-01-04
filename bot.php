@@ -194,7 +194,7 @@ function qibla($keyword) {
 
     $response = Unirest\Request::get("$uri");
 
-    $json = json_decode($response->raw_body, true)!
+    $json = json_decode($response->raw_body, true);
 	$result = $json['data']['image'];
 	$result .= $json['data']['kabah'];
 	$result .= $json['data']['derajat'];
