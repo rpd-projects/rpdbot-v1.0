@@ -189,17 +189,6 @@ function shalat($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
-function qibla($keyword) {
-    $uri = "https://time.siswadi.com/qibla/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-	$result = $json['data']['image'];
-	$result .= $json['data']['kabah'];
-	$result .= $json['data']['derajat'];
-    return $result;
-}
 #-------------------------[Function]-------------------------#
 function kalender($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
