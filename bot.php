@@ -385,7 +385,7 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /kalender [namakota]\n";
     $text .= "> /cuaca [namakota]\n";
     $text .= "> /film-syn [namafilm]\n";
-    $text .= "> /def [text]";
+    $text .= "> /def [text]\n";
     $text .= "> /myinfo\n";
     $text .= "> /creator\n";
     $text .= "> /about\n";
