@@ -396,11 +396,13 @@ if ($type == 'join' || $command == 'Help') {
         )
     );
 }
-if ($command_datang == '/MyInfo' || $command_datang == '/myinfo') {
-    $balas = array(
-        'replyToken' => $replyToken,
-        'messages' => array(
-            array(
+if($message['type']=='text') {
+	    if ($command == '/myinfo') {
+
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
 
 										'type' => 'text',					
 										'text' => '====[InfoProfile]====
@@ -416,6 +418,7 @@ Picture: '.$profil->pictureUrl.'
 						);
 				
 	}
+}
 //pesan bergambar
 if ($message['type'] == 'text') {
     if ($command == '/def') {
