@@ -415,7 +415,7 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /film-syn [namafilm]\n";
     $text .= "> /def [text]\n";
     $text .= "> /qiblat [namakota]\n";
-    $text .= "> /playstore [namaapk]\n
+    $text .= "> /playstore [namaapk]\n";
     $text .= "> /myinfo\n";
     $text .= "> /creator\n";
     $text .= "> /about\n";
