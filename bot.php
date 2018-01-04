@@ -24,20 +24,9 @@ $messageid 	= $client->parseEvents()[0]['message']['id'];
 $profil = $client->profil($userId);
 
 $pesan_datang = explode(" ", $message['text']);
-
+$msg_type = $message['type'];
 $command = $pesan_datang[0];
 $options = $pesan_datang[1];
-$acak = rand($key);
-switch($acak){
-case 1: $key = "Ya";
-break;
-case 2: $key = "Tidak";
-break;
-case 3: $key = "Bisa jadi";
-break;
-case 4: $key = "Coba ajukan pertanyaan lain";
-break;
-}
 if (count($pesan_datang) > 2) {
     for ($i = 2; $i < count($pesan_datang); $i++) {
         $options .= '+';
