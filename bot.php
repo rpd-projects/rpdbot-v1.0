@@ -221,7 +221,8 @@ function saveitoffline($keyword) {
 
 
     $json = json_decode($response->raw_body, true);
-	$result = "Judul : \n";
+	$result = "====[SaveOffline]====\n";
+	$result .= "Judul : \n";
 	$result .= $json['title'];
 	$result .= "\n\nUkuran : \n";
 	$result .= $json['urls'][0]['label'];
@@ -239,6 +240,8 @@ function saveitoffline($keyword) {
 	$result .= $json['urls'][3]['label'];	
 	$result .= "\n\nURL Download : \n";
 	$result .= $json['urls'][3]['id'];	
+	$result .= "\n\nPencarian : Google\n";
+	$result .= "====[SaveOffline]====";
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -277,6 +280,18 @@ function cuaca($keyword) {
 	$result .= $json['weather']['0']['description'];
 	$result .= "\n\nPencariaan : Google";
 	$result .= "\n====[InfoCuaca]====";
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+function urb_dict($keyword) {
+    $uri = "http://api.urbandictionary.com/v0/define?term=" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = $json['list'][0]['definition'];
+    $result .= "\n\nExamples : \n";
+    $result .= $json['list'][0]['example'];
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -383,7 +398,7 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /kalender [namakota]\n";
     $text .= "> /cuaca [namakota]\n";
     $text .= "> /film-syn [namafilm]\n";
-    $text .= "> /myinfo";
+    $text .= "> /myinfo\n";
     $text .= "> /creator\n";
     $text .= "> /about\n";
     $balas = array(
