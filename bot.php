@@ -256,16 +256,15 @@ function saveitoffline($keyword) {
 	$result .= "====[SaveOffline]====";
     return $result;
 }
-#-------------------------[Function]-------------------------#function qibla($keyword) {
-    $uri = "https://time.siswadi.com/qibla/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-	$result = $json['data']['image'];
-	$result .= $json['data']['kabah'];
-	$result .= $json['data']['derajat'];
-    return $result;
+#-------------------------[Function]-------------------------#
+function qibla($keyword) { 
+    $uri = "https://time.siswadi.com/qibla/" . $keyword; 
+ 
+    $response = Unirest\Request::get("$uri"); 
+ 
+    $json = json_decode($response->raw_body, true); 
+ $result .= $json['data']['image'];
+    return $result; 
 }
 // ----- LOCATION BY FIDHO -----
 function lokasi($keyword) { 
@@ -556,19 +555,25 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') { 
-     if ($command == '/playstore') {
+if($message['type']=='text') {
+	    if ($command == '/playstore') {
+
         $result = ps($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
                 array(
-                    'type' => 'message',
-                    'text' => $result,
+                    'type' => 'text',
+                    'text'  => 'Searching...'
+                ),
+                array(
+                    'type' => 'text',
+                    'text' => $result
                 )
             )
         );
     }
+
 }
 //pesan bergambar
 if($message['type']=='text') {
