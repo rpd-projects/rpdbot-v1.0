@@ -139,6 +139,16 @@ function music($keyword) {
     return $result; 
 }
 #-------------------------[Function]-------------------------#
+function img_search($keyword) {
+    $uri = 'https://www.google.co.id/search?q=' . $keyword . '&safe=off&source=lnms&tbm=isch';
+
+    $response = Unirest\Request::get("$uri");
+
+    $hasil = str_replace(">", "&gt;", $response->raw_body);
+    $arrays = explode("<", $hasil);
+    return explode('"', $arrays[291])[3];
+}
+#-------------------------[Function]-------------------------#
 function shalat($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
 
@@ -507,6 +517,22 @@ if($message['type']=='text') {
                 array(
                     'type' => 'text',
                     'text' => saveitoffline($options)
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/img') {
+        $hasil = img_search($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'image',
+                    'originalContentUrl' => $hasil,
+                    'previewImageUrl' => $hasil
                 )
             )
         );
