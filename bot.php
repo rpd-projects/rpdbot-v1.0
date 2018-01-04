@@ -88,6 +88,20 @@ function anime($keyword) {
     return $parsed;
 }
 #-------------------------[Function]-------------------------#
+function ps($keyword) { 
+    $uri = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171227T171852Z.fda4bd604c7bf41f.f939237fb5f802608e9fdae4c11d9dbdda94a0b5&text=" . $keyword . "&lang=id-id"; 
+ 
+    $response = Unirest\Request::get("$uri"); 
+ 
+    $json = json_decode($response->raw_body, true); 
+    $result .= "Name : ";
+    $result .= $json['text']['0'];
+    $result .= "\nLink: ";
+    $result .= "https://play.google.com/store/search?q=" . $keyword . "";
+    $result .= "\n\nPencarian : PlayStore";
+    return $result; 
+}
+#-------------------------[Function]-------------------------#
 function anime_syn($title) {
     $parsed = anime($title);
     $result = "Judul : " . $parsed['title'];
@@ -175,6 +189,19 @@ function shalat($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
+function qibla($keyword) {
+    $uri = "https://time.siswadi.com/qibla/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true)!
+	$result = $json['data']['image'];
+	$result .= $json['data']['kabah'];
+	$result .= $json['data']['derajat'];
+	$result .= $json['data']['kompas'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
 function kalender($keyword) {
     $uri = "https://time.siswadi.com/pray/" . $keyword;
 
@@ -241,14 +268,18 @@ function saveitoffline($keyword) {
 	$result .= "====[SaveOffline]====";
     return $result;
 }
-#-------------------------[Function]-------------------------#
+#-------------------------[Function]-------------------------#function qibla($keyword) {
+    $uri = "https://time.siswadi.com/qibla/" . $keyword;
 
-# require_once('./src/function/search-1.php');
-# require_once('./src/function/download.php');
-# require_once('./src/function/random.php');
-# require_once('./src/function/search-2.php');
-# require_once('./src/function/hard.php');
+    $response = Unirest\Request::get("$uri");
 
+    $json = json_decode($response->raw_body, true)!
+	$result = $json['data']['image'];
+	$result .= $json['data']['kabah'];
+	$result .= $json['data']['derajat'];
+	$result .= $json['data']['kompas'];
+    return $result;
+}
 // ----- LOCATION BY FIDHO -----
 function lokasi($keyword) { 
     $uri = "https://time.siswadi.com/pray/" . $keyword; 
@@ -396,6 +427,8 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /cuaca [namakota]\n";
     $text .= "> /film-syn [namafilm]\n";
     $text .= "> /def [text]\n";
+    $text .= "> /qiblat [namakota]\n";
+    $text .= "> /playstore [namaapk]\n
     $text .= "> /myinfo\n";
     $text .= "> /creator\n";
     $text .= "> /about\n";
@@ -408,6 +441,21 @@ if ($type == 'join' || $command == 'Help') {
             )
         )
     );
+}
+if($message['type']=='text') {
+	    if ($command == '/qiblat') {
+        $hasil = qibla($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'image',
+                    'originalContentUrl' => $hasil,
+                    'previewImageUrl' => $hasil
+                )
+            )
+        );
+    }
 }
 if($message['type']=='text') {
 	    if ($command == '/myinfo') {
@@ -489,7 +537,21 @@ if($message['type']=='text') {
             )
         );
     }
-
+}
+if($message['type']=='text') {
+	    if ($command == '/qiblat') {
+        $hasil = qibla($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'image',
+                    'originalContentUrl' => $hasil,
+                    'previewImageUrl' => $hasil
+                )
+            )
+        );
+    }
 }
 //pesan bergambar
 if($message['type']=='text') {
@@ -502,6 +564,20 @@ if($message['type']=='text') {
                 array(
                     'type' => 'text',
                     'text' => $result
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') { 
+     if ($command == '/playstore') {
+        $result = ps($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'message',
+                    'text' => $result,
                 )
             )
         );
@@ -524,8 +600,8 @@ if($message['type']=='text') {
 }
 //pesan bergambar
 if($message['type']=='text') {
-	    if ($command == '/img') {
-        $hasil = img_search($options);
+	    if ($command == '/qiblat') {
+        $hasil = qibla($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
