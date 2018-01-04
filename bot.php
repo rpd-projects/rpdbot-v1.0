@@ -94,19 +94,6 @@ function anime_syn($title) {
     $result .= "\n\nSynopsis :\n" . $parsed['synopsis'];
     return $result;
 }
-
-function urb_dict($keyword) {
-    $uri = "http://api.urbandictionary.com/v0/define?term=" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-
-    $json = json_decode($response->raw_body, true);
-    $result = $json['list'][0]['definition'];
-    $result .= "\n\nExamples : \n";
-    $result .= $json['list'][0]['example'];
-    return $result;
-}
 #-------------------------[Function]-------------------------#
 function say($keyword) { 
     $uri = "https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=" . $keyword . "&tanggal=10-05-2003"; 
@@ -398,6 +385,7 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /kalender [namakota]\n";
     $text .= "> /cuaca [namakota]\n";
     $text .= "> /film-syn [namafilm]\n";
+    $text .= "> /def [text]";
     $text .= "> /myinfo\n";
     $text .= "> /creator\n";
     $text .= "> /about\n";
