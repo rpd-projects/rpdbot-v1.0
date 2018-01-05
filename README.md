@@ -1,10 +1,10 @@
-# Line_Bot_Weather
+# Line_Bot_Chat
 Script Webhook Line Messaging API Use Heroku Or Other
 
 # Developer:
 Copyright @ Medantechno.com
 
-Modified @ Farzain - zFz
+Modified @ Toby
 
 # Deploy to:
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
