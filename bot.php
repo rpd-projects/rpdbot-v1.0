@@ -314,14 +314,8 @@ function send($input, $rt){
 function jawabs(){
     $list_jwb = array(
 		'Ya',
-		'Tentu Iya',	    
 		'Tidak',
-		'Tentu Tidak',	    
-		'Bisa jadi',
-		'Mungkin',
-		'Coba tanya lagi',
-		'lebih keras',	    
-		'Coba sekali lagi'
+		'Coba ajukan pertanyaan lain',	    
 		);
     $jaws = array_rand($list_jwb);
     $jawab = $list_jwb[$jaws];
@@ -386,7 +380,7 @@ function zodiak($keyword) {
 #-------------------------[Function]-------------------------#
 //show menu, saat join dan command /menu
 if ($type == 'join' || $command == 'Help') {
-    $text = "Makasih dh invite aku ke grup kak!! Ketik Help untuk gunain aku";
+    $text = "Makasih dh invite aku ke grup kak!! Ketik Help untuk gunain aku\n";
     $text .= "Keyword Steve ~~~\n";
     $text .= "> /anime-syn [text]\n";
     $text .= "> /anime [text]\n";
@@ -407,6 +401,7 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /myinfo\n";
     $text .= "> /creator\n";
     $text .= "> /about\n";
+    $text .= "> /bantuan\n";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -853,7 +848,237 @@ if($message['type']=='text') {
                 )
             )
         );
-    }
+    } else if ($command == '/bantuan') {
+
+	        $balas = array(
+							'replyToken' => $replyToken,
+							'messages' => array(
+								array (
+										  'type' => 'template',
+										  'altText' => 'Silahkan Pilih Keyword Yang Anda Inginkan',
+										  'template' => 
+										  array (
+										    'type' => 'carousel',
+										    'columns' => 
+										    array (
+										      0 => 
+										      array (
+										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
+										        'title' => 'Keyword 1',
+										        'text' => 'Silahkan Dipilih',
+										        'actions' => 
+										        array (
+										          0 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Cari Anime',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /anime [Judul Anime]'
+										          ),
+										          1 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Cari Sinopsis Anime',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /anime-syn [Judul Anime]'
+												  ),
+										          2 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Download Video',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /yt-get [URL Video Youtube]'
+										          ),
+										        ),
+										      ),
+										      1 => 
+										      array (
+										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
+										        'title' => 'Keyword 2',
+										        'text' => 'Silahkan Dipilih',
+										        'actions' => 
+										        array (
+										          0 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Cari Lokasi',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /lokasi [Nama Kota]'
+										          ),
+										          1 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Cari Sinopsis Film',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /film-syn [Judul Film]'
+										          ),
+										          2 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Mencari Waktu',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /time [Nama Kota]'
+										          ),
+										        ),
+										      ),
+										      1 => 
+										      array (
+										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
+										        'title' => 'Keyword 3',
+										        'text' => 'Silahkan Dipilih',
+										        'actions' => 
+										        array (
+										          0 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Cari Aplikasi',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /playstore [Nama Aplikasi]'
+										          ),
+										          1 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Cari Informasi',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /myinfo'
+										          ),
+										          2 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Cari Zodiak',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /zodiak [Tanggal Lahir]'
+										          ),
+										        ),
+										      ),
+										      1 => 
+										      array (
+										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
+										        'title' => 'Keyword 4',
+										        'text' => 'Silahkan Dipilih',
+										        'actions' => 
+										        array (
+										          0 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Cari Music',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /music [Nama Lagu]'
+										          ),
+										          1 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Pembuat Bot',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /creator'
+										          ),
+										          2 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Mencari Waktu',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /about'
+										          ),
+										        ),
+										      ),
+										      1 => 
+										      array (
+										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
+										        'title' => 'Keyword 5',
+										        'text' => 'Silahkan Dipilih',
+										        'actions' => 
+										        array (
+										          0 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Cari Lokasi',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /say [Text]'
+										          ),
+										          1 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Translate',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /tr-to [Nama Kota]\nMasih Tahap Pembuatan'
+										          ),
+										          2 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Cari Alkitab',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /alkitab [nomor]\nMasih Tahap Pembuatan'
+										          ),
+										        ),
+										      ),
+										      1 => 
+										      array (
+										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
+										        'title' => 'Keyword 6',
+										        'text' => 'Silahkan Dipilih',
+										        'actions' => 
+										        array (
+										          0 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Mencari Kalender',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /kalender [Nama Kota]'
+										          ),
+										          1 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Cari Kata',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /def [Text]'
+										          ),
+										          2 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Cari Lirik',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /lirik [Nama Lagu]'
+										          ),
+										        ),
+										      ),
+										      2 => 
+										      array (
+										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
+										        'title' => 'Keyword 7',
+										        'text' => 'Silahkan Dipilih',
+										        'actions' => 
+										        array (
+										          0 => 
+										          array (
+										            'type' => 'postback',
+										            'label' => 'Jadwal Shalat',
+										            'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /shalat [Lokasi]'
+										          ),
+										          1 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Cari Sinopsis Film',
+													'data' => 'action=add&itemid=111',
+													'text' => 'Ketik /cuaca [Lokasi]'
+										          ),
+										          2 => 
+										          array (
+													'type' => 'postback',
+													'label' => 'Qiblat Shalat',
+													'data' => 'action=add&itemid=111',
+													'text' => '/qiblat [Nama Kota]'
+										          ),
+										        ),
+										      ),											  
+										    ),
+										  ),
+										)					
+			 
+        )
+    );
+	}
+	
 }
 if (isset($balas)) {
     $result = json_encode($balas);
