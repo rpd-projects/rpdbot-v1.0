@@ -336,6 +336,19 @@ function kapan(){
     return($jawab);
 }
 
+function bisa(){
+    $list_jwb = array(
+		'Bisa',
+		'Tidak Bisa',
+		'Bisa Jadi',
+		'Mungkin Tidak Bisa',
+		'Coba ajukan pertanyaan lain',	    
+		);
+    $jaws = array_rand($list_jwb);
+    $jawab = $list_jwb[$jaws];
+    return($jawab);
+}
+
 function dosa(){
     $list_jwb = array(
 		'10%',
@@ -492,7 +505,7 @@ if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
     if($filter[0] == 'Bisakah') {
-        $balas = send(jawabs(), $replyToken);
+        $balas = send(bisa(), $replyToken);
     } else {}
 } if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
