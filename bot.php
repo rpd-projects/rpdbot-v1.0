@@ -322,6 +322,20 @@ function jawabs(){
     return($jawab);
 }
 
+function kapan(){
+    $list_jwb = array(
+		'Besok',
+		'1 Hari Lagi',
+		'1 Bulan Lagi',
+		'1 Tahun Lagi',
+		'1 Abad Lagi',
+		'Coba ajukan pertanyaan lain',	    
+		);
+    $jaws = array_rand($list_jwb);
+    $jawab = $list_jwb[$jaws];
+    return($jawab);
+}
+
 function dosa(){
     $list_jwb = array(
 		'10%',
@@ -471,27 +485,33 @@ if ($message['type'] == 'text') {
 if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == '/apakah') {
+    if($filter[0] == 'Apakah') {
         $balas = send(jawabs(), $replyToken);
     } else {}
 } if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == '/bisakah') {
+    if($filter[0] == 'Bisakah') {
         $balas = send(jawabs(), $replyToken);
     } else {}
 } if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == '/mungkinkah') {
-        $balas = send(jawabs(), $replyToken);
+    if($filter[0] == 'Kapankah') {
+        $balas = send(kapan(), $replyToken);
     } else {}
 } if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == '/dosanya') {
-		$balas = send(dosa2(), $replyToken);
+    if($filter[0] == 'Rate') {
         $balas = send(dosa(), $replyToken);
+    } else {}
+} if($msg_type == 'text'){
+    $pesan_datang = strtolower($message['text']);
+    $filter = explode(' ', $pesan_datang);
+    if($filter[0] == 'Dosanya') {
+		$balas = send(dosa2(), $replyToken);
+		$balas = send(dosa(), $replyToken);
 		$balas = send(dosa3(), $replyToken);
     } else {}
 } else {}
@@ -893,7 +913,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      2 => 
+										      0 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 2',
@@ -923,7 +943,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      2 => 
+										      0 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 3',
@@ -953,7 +973,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      2 => 
+										      0 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 4',
@@ -983,7 +1003,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      2 => 
+										      0 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 5',
@@ -1013,7 +1033,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      2 => 
+										      0 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 6',
@@ -1043,7 +1063,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      2 => 
+										      0 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 7',
