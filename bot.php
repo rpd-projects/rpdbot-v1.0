@@ -498,31 +498,31 @@ if ($message['type'] == 'text') {
 if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == 'Apakah') {
+    if($filter[0] == 'apakah') {
         $balas = send(jawabs(), $replyToken);
     } else {}
 } if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == 'Bisakah') {
+    if($filter[0] == 'bisakah') {
         $balas = send(bisa(), $replyToken);
     } else {}
 } if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == 'Kapankah') {
+    if($filter[0] == 'kapankah') {
         $balas = send(kapan(), $replyToken);
     } else {}
 } if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == 'Rate') {
+    if($filter[0] == 'rate') {
         $balas = send(dosa(), $replyToken);
     } else {}
 } if($msg_type == 'text'){
     $pesan_datang = strtolower($message['text']);
     $filter = explode(' ', $pesan_datang);
-    if($filter[0] == 'Dosanya') {
+    if($filter[0] == 'dosanya') {
 		$balas = send(dosa2(), $replyToken);
 		$balas = send(dosa(), $replyToken);
 		$balas = send(dosa3(), $replyToken);
@@ -926,7 +926,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      0 => 
+										      1 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 2',
@@ -956,7 +956,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      0 => 
+										      2 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 3',
@@ -986,7 +986,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      0 => 
+										      3 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 4',
@@ -1016,7 +1016,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      0 => 
+										      4 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 5',
@@ -1046,7 +1046,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      0 => 
+										      5 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 6',
@@ -1076,7 +1076,7 @@ if($message['type']=='text') {
 										          ),
 										        ),
 										      ),
-										      0 => 
+										      6 => 
 										      array (
 										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
 										        'title' => 'Keyword 7',
