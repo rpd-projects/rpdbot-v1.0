@@ -298,6 +298,27 @@ function urb_dict($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
+function adfly($url, $key, $uid, $domain = 'adf.ly', $advert_type = 'int')
+{
+  // base api url
+  $api = 'http://api.adf.ly/api.php?';
+
+  // api queries
+  $query = array(
+    'key' => $key,
+    'uid' => $uid,
+    'advert_type' => $advert_type,
+    'domain' => $domain,
+    'url' => $url
+  );
+
+  // full api url with query string
+  $api = $api . http_build_query($query);
+  // get data
+  if ($data = file_get_contents($api))
+    return $data;
+}
+#----------------#
 function send($input, $rt){
     $send = array(
         'replyToken' => $rt,
@@ -544,6 +565,23 @@ if($message['type']=='text') {
     }
 }
 if($message['type']=='text') {
+	    if ($command == '/shorten') {
+
+        $result = say($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $apiKey = '7970aaad57427df04129cfe2cfcd0584';
+                              $uId = 16519547;
+                              echo adfly('http://w3bees.com', $apiKey, $uId);
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
 	    if ($command == '/qiblat') {
         $hasil = qibla($options);
         $balas = array(
@@ -627,7 +665,7 @@ if($message['type']=='text') {
 }
 if($message['type']=='text') {
 	    if ($command == '/yt') {
-        $keyword = 'Zl_ZeIMHWjc';
+        $keyword = '';
         $image = 'https://img.youtube.com/vi/' . $keyword . '/2.jpg';
         $balas = array(
             'replyToken' => $replyToken,
@@ -819,6 +857,24 @@ if($message['type']=='text') {
                 array(
                     'type' => 'text',
                     'text' => $result
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/shorten') {
+
+        $result = adfly($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $apiKey = '7970aaad57427df04129cfe2cfcd0584';
+                              $uId = 16519547;
+                              echo adfly('http://w3bees.com', $apiKey, $uId);
                 )
             )
         );
