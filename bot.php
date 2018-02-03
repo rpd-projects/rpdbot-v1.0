@@ -176,7 +176,7 @@ function githubrepo($keyword) {
     $result .= "\nLanguage : ";
     $result .= $json['items']['language'];
     $result .= "\nUrl Github : ";
-    $result .= $json['items']['owner']['html_url']
+    $result .= $json['items']['owner']['html_url'];
     $result .= "\nUrl Repository : ";
     $result .= $json['items']['html_url'];
     $result .= "\nPrivate : ";
@@ -191,7 +191,7 @@ function githubrepo($keyword) {
     $result .= "\nLanguage : ";
     $result .= $json['items']['language'];
     $result .= "\nUrl Github : ";
-    $result .= $json['items']['owner']['html_url']
+    $result .= $json['items']['owner']['html_url'];
     $result .= "\nUrl Repository : ";
     $result .= $json['items']['html_url'];
     $result .= "\nPrivate : ";
@@ -206,7 +206,7 @@ function githubrepo($keyword) {
     $result .= "\nLanguage : ";
     $result .= $json['items']['language'];
     $result .= "\nUrl Github : ";
-    $result .= $json['items']['owner']['html_url']
+    $result .= $json['items']['owner']['html_url'];
     $result .= "\nUrl Repository : ";
     $result .= $json['items']['html_url'];
     $result .= "\nPrivate : ";
