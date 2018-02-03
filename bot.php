@@ -901,24 +901,6 @@ if($message['type']=='text') {
 }
 //pesan bergambar
 if($message['type']=='text') {
-	    if ($command == '/shorten') {
-
-        $result = adfly($options);
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'text',
-                    'text' => $apiKey = '7970aaad57427df04129cfe2cfcd0584';
-                              $uId = 16519547;
-                              echo adfly('http://w3bees.com', $apiKey, $uId);
-                )
-            )
-        );
-    }
-}
-//pesan bergambar
-if($message['type']=='text') {
 	    if ($command == 'Bot' || $command == 'Steve' ) {
 
         $balas = array(
