@@ -166,7 +166,7 @@ function githubrepo($keyword) {
  
     $json = json_decode($response->raw_body, true); 
     $result = "====[GithubRepo]====";
-    $result>.= "\n====[1]====";
+    $result .= "\n====[1]====";
     $result .= "\nResult : ";
     $result .= $json['total_count'];
     $result .= "\nNama Repository : ";
