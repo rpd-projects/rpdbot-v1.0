@@ -448,16 +448,17 @@ function zodiak($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
-//show menu, saat join dan command /menu
+//show menu, saat join dan command,menu
 if ($type == 'join' || $command == 'Help') {
     $text = "Makasih dh invite aku ke grup kak!! Ketik Help untuk gunain aku\n";
     $text .= "Keyword Steve ~~~\n";
     $text .= "> /anime-syn [text]\n";
     $text .= "> /anime [text]\n";
     $text .= "> /yt-get [link]\n";
-    $text .= "> /convert [link]\n;
-    $text .= "> /music [lagu]\n";
+    $text .= "> /shorten [link]\n";
+    $text .= "> /convert [link]\n";
     $text .= "> /say [text]\n";
+    $text .= "> /music[text]\n";
     $text .= "> /lirik [lagu]\n";
     $text .= "> /shalat [namakota]\n";
     $text .= "> /zodiak [tanggallahir]\n";
