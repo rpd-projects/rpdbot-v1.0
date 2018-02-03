@@ -47,6 +47,23 @@ function film_syn($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
+function ytdownload($keyword) {
+    $uri = "http://wahidganteng.ga/process/api/b82582f5a402e85fd189f716399bcd7c/youtube-downloader?url=" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Judul : \n";
+	$result .= $json['title'];
+	$result .= "\nType : ";
+	$result .= $json['data']['type'];
+	$result .= "\nUkuran : ";
+	$result .= $json['data']['size'];
+	$result .= "\nLink : ";
+	$result .= $json['data']['link'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
 function anime($keyword) {
 
     $fullurl = 'https://myanimelist.net/api/anime/search.xml?q=' . $keyword;
@@ -318,6 +335,11 @@ function adfly($url, $key, $uid, $domain = 'adf.ly', $advert_type = 'int')
   if ($data = file_get_contents($api))
     return $data;
 }
+{
+  $apiKey = '7970aaad57427df04129cfe2cfcd0584';
+  $uId = 16519547;
+  echo adfly('http://w3bees.com', $apiKey, $uId);
+}
 #----------------#
 function send($input, $rt){
     $send = array(
@@ -433,6 +455,7 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /anime-syn [text]\n";
     $text .= "> /anime [text]\n";
     $text .= "> /yt-get [link]\n";
+    $text .= "> /convert [link]\n;
     $text .= "> /music [lagu]\n";
     $text .= "> /say [text]\n";
     $text .= "> /lirik [lagu]\n";
@@ -565,17 +588,15 @@ if($message['type']=='text') {
     }
 }
 if($message['type']=='text') {
-	    if ($command == '/shorten') {
+	    if ($command == '/yt-get') {
 
-        $result = say($options);
+        $result = yt-download($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
                 array(
                     'type' => 'text',
-                    'text' => $apiKey = '7970aaad57427df04129cfe2cfcd0584';
-                              $uId = 16519547;
-                              echo adfly('http://w3bees.com', $apiKey, $uId);
+                    'text' => yt-download($options)
                 )
             )
         );
@@ -634,7 +655,7 @@ if($message['type']=='text') {
 }
 //pesan bergambar
 if($message['type']=='text') {
-	    if ($command == '/yt-get') {
+	    if ($command == '/convert') {
         $result = saveitoffline($options);
         $balas = array(
             'replyToken' => $replyToken,
@@ -642,6 +663,21 @@ if($message['type']=='text') {
                 array(
                     'type' => 'text',
                     'text' => saveitoffline($options)
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/shorten') {
+        $result = adfly($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => adfly($options)
                 )
             )
         );
