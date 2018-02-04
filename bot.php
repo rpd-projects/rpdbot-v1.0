@@ -53,17 +53,17 @@ function film($keyword) {
     $response = Unirest\Request::get("$uri");
 
     $json = json_decode($response->raw_body, true);
-    $result = "Judul : \n";
+    $result = "Judul : ";
 	$result .= $json['Title'];
-	$result .= "Rilis : \n";
+	$result .= "\nRilis : ";
 	$result .= $json['Released'];
-	$result .= "Tipe : \n";
+	$result .= "\nTipe : ";
 	$result .= $json['Genre'];
-	$result .= "Actors : \n";
+	$result .= "\nActors : \n";
 	$result .= $json['Actors'];
-	$result .= "Language : \n";
+	$result .= "\nBahasa : \n";
 	$result .= $json['Language'];
-	$result .= "Negara : \n";
+	$result .= "\nNegara : \n";
 	$result .= $json['Country'];
     return $result;
 }
@@ -1216,7 +1216,7 @@ if($message['type']=='text') {
 										          1 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Cari Sinopsis Film',
+													'label' => 'Cari Film',
 													'data' => 'action=add&itemid=111',
 													'text' => 'Ketik /film [Judul Film]'
 										          ),
