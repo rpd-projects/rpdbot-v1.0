@@ -47,6 +47,27 @@ function film_syn($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
+function film($keyword) {
+    $uri = "http://www.omdbapi.com/?t=" . $keyword . '&plot=full&apikey=d5010ffe';
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Judul : \n";
+	$result .= $json['Title'];
+	$result .= "Rilis : \n";
+	$result .= $json['Released'];
+	$result .= "Tipe : \n";
+	$result .= $json['Genre'];
+	$result .= "Actors : \n";
+	$result .= $json['Actors'];
+	$result .= "Language : \n";
+	$result .= $json['Language'];
+	$result .= "Negara : \n";
+	$result .= $json['Country'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
 function ytdownload($keyword) {
     $uri = "http://wahidganteng.ga/process/api/b82582f5a402e85fd189f716399bcd7c/youtube-downloader?url=" . $keyword;
 
@@ -94,6 +115,36 @@ function anime($keyword) {
     return $parsed;
 }
 #-------------------------[Function]-------------------------#
+function manga($keyword) {
+
+    $fullurl = 'https://myanimelist.net/api/manga/search.xml?q=' . $keyword;
+    $username = 'jamal3213';
+    $password = 'FZQYeZ6CE9is';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_VERBOSE, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_URL, $fullurl);
+
+    $returned = curl_exec($ch);
+    $xml = new SimpleXMLElement($returned);
+    $parsed = array();
+
+    $parsed['id'] = (string) $xml->entry[0]->id;
+    $parsed['image'] = (string) $xml->entry[0]->image;
+    $parsed['title'] = (string) $xml->entry[0]->title;
+    $parsed['desc'] = "Episode : ";
+    $parsed['desc'] .= $xml->entry[0]->episodes;
+    $parsed['desc'] .= "\nNilai : ";
+    $parsed['desc'] .= $xml->entry[0]->score;
+    $parsed['desc'] .= "\nTipe : ";
+    $parsed['desc'] .= $xml->entry[0]->type;
+    $parsed['synopsis'] = str_replace("<br />", "\n", html_entity_decode((string) $xml->entry[0]->synopsis, ENT_QUOTES | ENT_XHTML, 'UTF-8'));
+    return $parsed;
+}
+#-------------------------[Function]-------------------------#
 function ps($keyword) { 
     $uri = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20171227T171852Z.fda4bd604c7bf41f.f939237fb5f802608e9fdae4c11d9dbdda94a0b5&text=" . $keyword . "&lang=id-id"; 
  
@@ -110,6 +161,13 @@ function ps($keyword) {
 #-------------------------[Function]-------------------------#
 function anime_syn($title) {
     $parsed = anime($title);
+    $result = "Judul : " . $parsed['title'];
+    $result .= "\n\nSynopsis :\n" . $parsed['synopsis'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+function manga_syn($title) {
+    $parsed = manga($title);
     $result = "Judul : " . $parsed['title'];
     $result .= "\n\nSynopsis :\n" . $parsed['synopsis'];
     return $result;
@@ -512,9 +570,11 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "Keyword Steve ~~~\n";
     $text .= "> /anime-syn [text]\n";
     $text .= "> /anime [text]\n";
-    $text .= "> /shorten [link]\n";
+    $text .= "> /manga-syn [text]\n";
+    $text .= "> /manga [text]\n";
+    $text .= "> /film-syn [text]\n";
+    $text .= "> /film [text]\n";
     $text .= "> /convert [link]\n";
-    $text .= "> /github-repo [namagithub]\n";
     $text .= "> /say [text]\n";
     $text .= "> /music[text]\n";
     $text .= "> /lirik [lagu]\n";
@@ -524,7 +584,6 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /time [namakota]\n";
     $text .= "> /kalender [namakota]\n";
     $text .= "> /cuaca [namakota]\n";
-    $text .= "> /film-syn [namafilm]\n";
     $text .= "> /def [text]\n";
     $text .= "> /qiblat [namakota]\n";
     $text .= "> /playstore [namaapk]\n";
@@ -830,9 +889,75 @@ if($message['type']=='text') {
     }
 }
 if($message['type']=='text') {
+	    if ($command == '/manga') {
+        $result = manga($options);
+        $altText = "Title : " . $result['title'];
+        $altText .= "\n\n" . $result['desc'];
+        $altText .= "\nMAL Page : https://myanimelist.net/manga/" . $result['id'];
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'template',
+                    'altText' => $altText,
+                    'template' => array(
+                        'type' => 'buttons',
+                        'title' => $result['title'],
+                        'thumbnailImageUrl' => $result['image'],
+                        'text' => $result['desc'],
+                        'actions' => array(
+                            array(
+                                'type' => 'postback',
+                                'label' => 'Baca Sinopsis-nya',
+                                'data' => 'action=add&itemid=123',
+                                'text' => '/manga-syn' . $options
+                            ),
+                            array(
+                                'type' => 'uri',
+                                'label' => 'Website MAL',
+                                'uri' => 'https://myanimelist.net/manga/' . $result['id']
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
 	    if ($command == '/anime-syn') {
 
         $result = anime_syn($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/film') {
+
+        $result = film($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/manga-syn') {
+
+        $result = manga_syn($options);
         $balas = array(
             'replyToken' => $replyToken,
             'messages' => array(
@@ -1068,9 +1193,9 @@ if($message['type']=='text') {
 										          2 => 
 										          array (
 										            'type' => 'postback',
-										            'label' => 'Download Video',
+										            'label' => 'Cari Manga',
 										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /yt-get [URL Video Youtube]'
+													'text' => 'Ketik /manga [Judul Manga]'
 										          ),
 										        ),
 										      ),
@@ -1084,23 +1209,23 @@ if($message['type']=='text') {
 										          0 => 
 										          array (
 										            'type' => 'postback',
-										            'label' => 'Cari Lokasi',
+										            'label' => 'Cari Sinopsis Manga',
 										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /lokasi [Nama Kota]'
+													'text' => 'Ketik /manga-syn [Judul Manga]'
 										          ),
 										          1 => 
 										          array (
 													'type' => 'postback',
 													'label' => 'Cari Sinopsis Film',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /film-syn [Judul Film]'
+													'text' => 'Ketik /film [Judul Film]'
 										          ),
 										          2 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Mencari Waktu',
+													'label' => 'Cari Sinopsis Film',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /time [Nama Kota]'
+													'text' => 'Ketik /film-syn [Judul Film]'
 										          ),
 										        ),
 										      ),
@@ -1146,21 +1271,21 @@ if($message['type']=='text') {
 										            'type' => 'postback',
 										            'label' => 'Cari Music',
 										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /music [Nama Lagu]'
+													'text' => 'Ketik /music [Judul Lagu]'
 										          ),
 										          1 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Pembuat Bot',
+													'label' => 'Cari Lirik',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /creator'
+													'text' => 'Ketik /lirik [Judul Lagu]'
 										          ),
 										          2 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Mencari Waktu',
+													'label' => 'Cari Waktu',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /about'
+													'text' => 'Ketik /time [Nama Kota]'
 										          ),
 										        ),
 										      ),
@@ -1176,21 +1301,21 @@ if($message['type']=='text') {
 										            'type' => 'postback',
 										            'label' => 'Cari Lokasi',
 										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /say [Text]'
+													'text' => 'Ketik /lokasi [Nama Kota]'
 										          ),
 										          1 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Translate',
+													'label' => 'Cari Kalender',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /tr-to [Nama Kota]\nMasih Tahap Pembuatan'
+													'text' => 'Ketik /kalender [Nama Kota]'
 										          ),
 										          2 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Cari Alkitab',
+													'label' => 'Cari KosaKata',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /alkitab [nomor]\nMasih Tahap Pembuatan'
+													'text' => 'Ketik /def [Kata]'
 										          ),
 										        ),
 										      ),
@@ -1204,23 +1329,23 @@ if($message['type']=='text') {
 										          0 => 
 										          array (
 										            'type' => 'postback',
-										            'label' => 'Mencari Kalender',
+										            'label' => 'Cari Qiblat',
 										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /kalender [Nama Kota]'
+													'text' => 'Ketik /qiblat [Nama Kota]'
 										          ),
 										          1 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Cari Kata',
+													'label' => 'Cari Jadwal Shalat',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /def [Text]'
+													'text' => 'Ketik /shalat [Nama Kota]'
 										          ),
 										          2 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Cari Lirik',
+													'label' => 'Cari Cuaca',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /lirik [Nama Lagu]'
+													'text' => 'Ketik /cuaca [Nama Kota]'
 										          ),
 										        ),
 										      ),
@@ -1234,23 +1359,23 @@ if($message['type']=='text') {
 										          0 => 
 										          array (
 										            'type' => 'postback',
-										            'label' => 'Jadwal Shalat',
+										            'label' => 'Convert',
 										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /shalat [Lokasi]'
+													'text' => 'Ketik /convert [Link]'
 										          ),
 										          1 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Cari Sinopsis Film',
+													'label' => 'About',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /cuaca [Lokasi]'
+													'text' => 'Ketik /about'
 										          ),
 										          2 => 
 										          array (
 													'type' => 'postback',
-													'label' => 'Qiblat Shalat',
+													'label' => 'Creator',
 													'data' => 'action=add&itemid=111',
-													'text' => '/qiblat [Nama Kota]'
+													'text' => 'Ketik /creator'
 										          ),
 										        ),
 										      ),											  
