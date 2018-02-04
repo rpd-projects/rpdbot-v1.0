@@ -170,7 +170,7 @@ function githubrepo($keyword) {
     $result .= "\nResult : ";
     $result .= $json['total_count'];
     $result .= "\nNama Repository : ";
-    $result .= $json['name'];
+    $result .= $json['items']['data']['name'];
     $result .= "\nNama Github : ";
     $result .= $json['items']['full_name'];
     $result .= "\nLanguage : ";
