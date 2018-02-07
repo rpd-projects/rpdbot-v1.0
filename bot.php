@@ -34,6 +34,7 @@ if (count($pesan_datang) > 2) {
     }
 }
 #-------------------------[Function]-------------------------#
+#-------------------------[Function]-------------------------#
 function film_syn($keyword) {
     $uri = "http://www.omdbapi.com/?t=" . $keyword . '&plot=full&apikey=d5010ffe';
 
@@ -59,11 +60,11 @@ function film($keyword) {
 	$result .= $json['Released'];
 	$result .= "\nTipe : ";
 	$result .= $json['Genre'];
-	$result .= "\nActors : \n";
+	$result .= "\nActors : ";
 	$result .= $json['Actors'];
-	$result .= "\nBahasa : \n";
+	$result .= "\nBahasa : ";
 	$result .= $json['Language'];
-	$result .= "\nNegara : \n";
+	$result .= "\nNegara : ";
 	$result .= $json['Country'];
     return $result;
 }
@@ -438,8 +439,8 @@ function adfly($url, $key, $uid, $domain = 'adf.ly', $advert_type = 'int')
 
   // api queries
   $query = array(
-    'key' => $key,
-    'uid' => $uid,
+    '7970aaad57427df04129cfe2cfcd0584' => $key,
+    '16519547' => $uid,
     'advert_type' => $advert_type,
     'domain' => $domain,
     'url' => $url
@@ -450,11 +451,6 @@ function adfly($url, $key, $uid, $domain = 'adf.ly', $advert_type = 'int')
   // get data
   if ($data = file_get_contents($api))
     return $data;
-}
-{
-  $apiKey = '7970aaad57427df04129cfe2cfcd0584';
-  $uId = 16519547;
-  echo adfly('http://w3bees.com', $apiKey, $uId);
 }
 #----------------#
 function send($input, $rt){
@@ -750,6 +746,21 @@ if($message['type']=='text') {
         );
     }
 }
+if($message['type']=='text') {
+	    if ($command == '/qr') {
+        $hasil = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=".$keyword;
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'image',
+                    'originalContentUrl' => $hasil,
+                    'previewImageUrl' => $hasil
+                )
+            )
+        );
+    }
+}
 //pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/cuaca') {
@@ -810,7 +821,7 @@ if($message['type']=='text') {
             'messages' => array(
                 array(
                     'type' => 'text',
-                    'text' => adfly($options)
+                    'text' => $data
                 )
             )
         );
