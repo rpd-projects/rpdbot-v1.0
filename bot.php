@@ -34,6 +34,20 @@ if (count($pesan_datang) > 2) {
     }
 }
 #-------------------------[Function]-------------------------#
+function quotes($keyword) {
+    $uri = "http://quotes.rest/qod.json?category=" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Result : ";
+	$result .= $json['success']['total'];
+	$result .= "\nQuotes : ";
+	$result .= $json['contents']['quotes']['quote']
+	$result .= "\nAuthor : ";
+	$result .= $json['contents']['quotes']['author'];
+    return $result;
+}
 #-------------------------[Function]-------------------------#
 function film_syn($keyword) {
     $uri = "http://www.omdbapi.com/?t=" . $keyword . '&plot=full&apikey=d5010ffe';
@@ -797,6 +811,22 @@ if($message['type']=='text') {
     }
 
 }
+if($message['type']=='text') {
+	    if ($command == '/quotes') {
+
+        $result = quotes($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text'  => $result
+                )
+            )
+        );
+    }
+
+}                
 //pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/convert') {
