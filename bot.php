@@ -43,9 +43,57 @@ function quotes($keyword) {
     $result = "Result : ";
 	$result .= $json['success']['total'];
 	$result .= "\nQuotes : ";
-	$result .= $json['contents']['quotes']['quote']
+	$result .= $json['contents']['quotes']['quote'];
 	$result .= "\nAuthor : ";
 	$result .= $json['contents']['quotes']['author'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+function tren($keyword) {
+    $uri = "http://api.secold.com/translate/en/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Type : English";
+    $result .= "\nTranslate : ";
+	$result .= $json['result']
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+function trid($keyword) {
+    $uri = "http://api.secold.com/translate/id/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Type : Indonesian";
+    $result .= "\nTranslate : ";
+	$result .= $json['result']
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+function trja($keyword) {
+    $uri = "http://api.secold.com/translate/ja/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Type : Japanese";
+    $result .= "\nTranslate : ";
+	$result .= $json['result']
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+function trar($keyword) {
+    $uri = "http://api.secold.com/translate/ar/" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Type : Arabic";
+    $result .= "\nTranslate : ";
+	$result .= $json['result']
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -599,6 +647,7 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /playstore [namaapk]\n";
     $text .= "> /kerangajaib\n";
     $text .= "> /spam\n";
+    $text .= "> /translate\n";
     $text .= "> /myinfo\n";
     $text .= "> /creator\n";
     $text .= "> /about\n";
@@ -700,6 +749,67 @@ if($msg_type == 'text'){
 		$balas = send(dosa3(), $replyToken);
     } else {}
 } else {}
+//translate//
+if($message['type']=='text') {
+	    if ($command == '/tr-ar') {
+
+        $result = trar($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/tr-ja') {
+
+        $result = trja($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/tr-id') {
+
+        $result = trid($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
+if($message['type']=='text') {
+	    if ($command == '/tr-en') {
+
+        $result = tren($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => $result
+                )
+            )
+        );
+    }
+}
 if($message['type']=='text') {
 	    if ($command == '/say') {
 
@@ -1416,7 +1526,7 @@ if($message['type']=='text') {
 													'type' => 'postback',
 													'label' => 'Creator',
 													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /creator'
+													'text' => 'Ketik /translate'
 										          ),
 										        ),
 										      ),											  
