@@ -494,6 +494,12 @@ function urb_dict($keyword) {
     return $result;
 }
 #-------------------------[Function]-------------------------#
+function qrcode($keyword) {
+    $uri = "http://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=" . $keyword;
+
+    return $uri;
+}
+#-------------------------[Function]-------------------------#
 function adfly($url, $key, $uid, $domain = 'adf.ly', $advert_type = 'int')
 {
   // base api url
@@ -870,21 +876,6 @@ if($message['type']=='text') {
         );
     }
 }
-if($message['type']=='text') {
-	    if ($command == '/qr') {
-        $hasil = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=".$keyword;
-        $balas = array(
-            'replyToken' => $replyToken,
-            'messages' => array(
-                array(
-                    'type' => 'image',
-                    'originalContentUrl' => $hasil,
-                    'previewImageUrl' => $hasil
-                )
-            )
-        );
-    }
-}
 //pesan bergambar
 if($message['type']=='text') {
 	    if ($command == '/cuaca') {
@@ -896,6 +887,23 @@ if($message['type']=='text') {
                 array(
                     'type' => 'text',
                     'text' => $result
+                )
+            )
+        );
+    }
+}
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/qr') {
+
+        $result = qrcode($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'image',
+                    'originalContentUrl' => $result,
+                    'previewImageUrl' => $result
                 )
             )
         );
