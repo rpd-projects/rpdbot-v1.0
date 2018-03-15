@@ -34,7 +34,40 @@ if (count($pesan_datang) > 2) {
     }
 }
 #-------------------------[Function]-------------------------#
-function quotes($keyword) {
+thumbnail($keyword) {
+    $uri = "http://rahandiapi.herokuapp.com/youtubeapi/search?key=betakey&q=" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+	$result .= $json['result']['thumbnail'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+ytsearch($keyword) {
+    $uri = "http://rahandiapi.herokuapp.com/youtubeapi/search?key=betakey&q=" . $keyword;
+
+    $response = Unirest\Request::get("$uri");
+
+    $json = json_decode($response->raw_body, true);
+    $result = "Channel : ";
+	$result .= $json['result']['author'];
+	$result .= "\nJudul : ";
+	$result .= $json['result']['title'];
+	$result .= "\nDurasi : ";
+	$result .= $json['result']['duration'];
+	$result .= "\nLikes : ";
+	$result .= $json['result']['likes'];
+	$result .= "\nDislike : ";
+	$result .= $json['result']['dislikes'];
+	$result .= "\nPenonton : ";
+	$result .= $json['result']['viewcount'];
+	$result .= "\nLink Thumbnail : ";
+	$result .= $json['result']['thumbnail'];
+    return $result;
+}
+#-------------------------[Function]-------------------------#
+quotes($keyword) {
     $uri = "http://quotes.rest/qod.json?category=" . $keyword;
 
     $response = Unirest\Request::get("$uri");
@@ -46,54 +79,6 @@ function quotes($keyword) {
 	$result .= $json['contents']['quotes']['quote'];
 	$result .= "\nAuthor : ";
 	$result .= $json['contents']['quotes']['author'];
-    return $result;
-}
-#-------------------------[Function]-------------------------#
-function tren($keyword) {
-    $uri = "http://api.secold.com/translate/en/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "Type : English";
-    $result .= "\nTranslate : ";
-	$result .= $json['result'];
-    return $result;
-}
-#-------------------------[Function]-------------------------#
-function trid($keyword) {
-    $uri = "http://api.secold.com/translate/id/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "Type : Indonesian";
-    $result .= "\nTranslate : ";
-	$result .= $json['result'];
-    return $result;
-}
-#-------------------------[Function]-------------------------#
-function trja($keyword) {
-    $uri = "http://api.secold.com/translate/ja/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "Type : Japanese";
-    $result .= "\nTranslate : ";
-	$result .= $json['result'];
-    return $result;
-}
-#-------------------------[Function]-------------------------#
-function trar($keyword) {
-    $uri = "http://api.secold.com/translate/ar/" . $keyword;
-
-    $response = Unirest\Request::get("$uri");
-
-    $json = json_decode($response->raw_body, true);
-    $result = "Type : Arabic";
-    $result .= "\nTranslate : ";
-	$result .= $json['result'];
     return $result;
 }
 #-------------------------[Function]-------------------------#
@@ -653,11 +638,9 @@ if ($type == 'join' || $command == 'Help') {
     $text .= "> /playstore [namaapk]\n";
     $text .= "> /kerangajaib\n";
     $text .= "> /spam\n";
-    $text .= "> /translate\n";
     $text .= "> /myinfo\n";
     $text .= "> /creator\n";
     $text .= "> /about\n";
-    $text .= "> /bantuan\n";
     $balas = array(
         'replyToken' => $replyToken,
         'messages' => array(
@@ -991,6 +974,26 @@ if($message['type']=='text') {
         );
     }
 }
+//pesan bergambar
+if($message['type']=='text') {
+	    if ($command == '/ytsearch') {
+        $hasil = ytsearch($options);
+        $hasill = thumbnail($options);
+        $balas = array(
+            'replyToken' => $replyToken,
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text'  => $hasil
+                ), array(
+                    'type' => 'image',
+                    'originalContentUrl' => $hasill,
+                    'previewImageUrl' => $hasill
+                )
+            )
+        );
+    }
+}
 if($message['type']=='text') {
 	    if ($command == '/yt') {
         $keyword = '';
@@ -1315,237 +1318,7 @@ if($message['type']=='text') {
                 )
             )
         );
-    } else if ($command == '/bantuan') {
-
-	        $balas = array(
-							'replyToken' => $replyToken,
-							'messages' => array(
-								array (
-										  'type' => 'template',
-										  'altText' => 'Silahkan Pilih Keyword Yang Anda Inginkan',
-										  'template' => 
-										  array (
-										    'type' => 'carousel',
-										    'columns' => 
-										    array (
-										      0 => 
-										      array (
-										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
-										        'title' => 'Keyword 1',
-										        'text' => 'Silahkan Dipilih',
-										        'actions' => 
-										        array (
-										          0 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Cari Anime',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /anime [Judul Anime]'
-										          ),
-										          1 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Cari Sinopsis Anime',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /anime-syn [Judul Anime]'
-												  ),
-										          2 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Cari Manga',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /manga [Judul Manga]'
-										          ),
-										        ),
-										      ),
-										      1 => 
-										      array (
-										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
-										        'title' => 'Keyword 2',
-										        'text' => 'Silahkan Dipilih',
-										        'actions' => 
-										        array (
-										          0 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Cari Sinopsis Manga',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /manga-syn [Judul Manga]'
-										          ),
-										          1 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Film',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /film [Judul Film]'
-										          ),
-										          2 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Sinopsis Film',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /film-syn [Judul Film]'
-										          ),
-										        ),
-										      ),
-										      2 => 
-										      array (
-										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
-										        'title' => 'Keyword 3',
-										        'text' => 'Silahkan Dipilih',
-										        'actions' => 
-										        array (
-										          0 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Cari Aplikasi',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /playstore [Nama Aplikasi]'
-										          ),
-										          1 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Informasi',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /myinfo'
-										          ),
-										          2 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Zodiak',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /zodiak [Tanggal Lahir]'
-										          ),
-										        ),
-										      ),
-										      3 => 
-										      array (
-										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
-										        'title' => 'Keyword 4',
-										        'text' => 'Silahkan Dipilih',
-										        'actions' => 
-										        array (
-										          0 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Cari Music',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /music [Judul Lagu]'
-										          ),
-										          1 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Lirik',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /lirik [Judul Lagu]'
-										          ),
-										          2 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Waktu',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /time [Nama Kota]'
-										          ),
-										        ),
-										      ),
-										      4 => 
-										      array (
-										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
-										        'title' => 'Keyword 5',
-										        'text' => 'Silahkan Dipilih',
-										        'actions' => 
-										        array (
-										          0 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Cari Lokasi',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /lokasi [Nama Kota]'
-										          ),
-										          1 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Kalender',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /kalender [Nama Kota]'
-										          ),
-										          2 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari KosaKata',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /def [Kata]'
-										          ),
-										        ),
-										      ),
-										      5 => 
-										      array (
-										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
-										        'title' => 'Keyword 6',
-										        'text' => 'Silahkan Dipilih',
-										        'actions' => 
-										        array (
-										          0 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Cari Qiblat',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /qiblat [Nama Kota]'
-										          ),
-										          1 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Jadwal Shalat',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /shalat [Nama Kota]'
-										          ),
-										          2 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Cari Cuaca',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /cuaca [Nama Kota]'
-										          ),
-										        ),
-										      ),
-										      6 => 
-										      array (
-										        'thumbnailImageUrl' => 'https://raw.githubusercontent.com/TobyGaming74/TobyBotOa/master/Toby.png',
-										        'title' => 'Keyword 7',
-										        'text' => 'Silahkan Dipilih',
-										        'actions' => 
-										        array (
-										          0 => 
-										          array (
-										            'type' => 'postback',
-										            'label' => 'Convert',
-										            'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /convert [Link]'
-										          ),
-										          1 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'About',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /about'
-										          ),
-										          2 => 
-										          array (
-													'type' => 'postback',
-													'label' => 'Creator',
-													'data' => 'action=add&itemid=111',
-													'text' => 'Ketik /translate'
-										          ),
-										        ),
-										      ),											  
-										    ),
-										  ),
-										)					
-			 
-        )
-    );
-	}
-	
+    }
 }
 if (isset($balas)) {
     $result = json_encode($balas);
