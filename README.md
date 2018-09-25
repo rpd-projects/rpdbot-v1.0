@@ -12,4 +12,7 @@ Modified @ Rdp team
 # Source:
 Source : https://medantechno.com/read/news/23/tutorial-membuat-bot-messaging-api-line
 
+# Example Bot
+<a href="https://line.me/R/ti/p/%40yvp1614a"><img height="36" border="0" alt="Tambah Teman" src="https://scdn.line-apps.com/n/line_add_friends/btn/en.png"></a>
+
 PHP Unirest Script Included
